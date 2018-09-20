@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using HotChocolate;
@@ -37,9 +38,12 @@ namespace StarWars
                 c.RegisterType<DroidType>();
                 c.RegisterType<EpisodeType>();
 
-                // debugging options
-                c.Options.DeveloperMode = true;
-                c.Options.ExecutionTimeout = TimeSpan.FromMinutes(5);
+                if (Debugger.IsAttached)
+                {
+                    // debugging options
+                    c.Options.DeveloperMode = true;
+                    c.Options.ExecutionTimeout = TimeSpan.FromMinutes(5);
+                }
             }));
         }
 

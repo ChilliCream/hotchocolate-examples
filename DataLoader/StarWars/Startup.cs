@@ -28,12 +28,18 @@ namespace StarWars
             {
                 c.RegisterServiceProvider(sp);
 
+                c.RegisterDataLoader<HumanDataLoader>();
+
                 c.RegisterQueryType<QueryType>();
                 c.RegisterMutationType<MutationType>();
 
                 c.RegisterType<HumanType>();
                 c.RegisterType<DroidType>();
                 c.RegisterType<EpisodeType>();
+
+                // debugging options
+                c.Options.DeveloperMode = true;
+                c.Options.ExecutionTimeout = TimeSpan.FromMinutes(5);
             }));
         }
 

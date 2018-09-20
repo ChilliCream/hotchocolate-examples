@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using HotChocolate;
 using HotChocolate.Resolvers;
 using StarWars.Data;
 using StarWars.Models;
@@ -21,9 +23,12 @@ namespace StarWars
             return _repository.GetHero(episode);
         }
 
-        public Human GetHuman(string id)
+        // instead of loading our human directly from our repository we use
+        // a data loader that will automatically batch an cache human requests
+        // within one request.
+        public Task<Human> GetHuman(string id, [DataLoader]HumanDataLoader dataLoader)
         {
-            return _repository.GetHuman(id);
+            return dataLoader.LoadAsync(id);
         }
 
         public Droid GetDroid(string id)

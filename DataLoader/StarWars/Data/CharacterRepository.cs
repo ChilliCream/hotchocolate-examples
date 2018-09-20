@@ -46,7 +46,9 @@ namespace StarWars.Data
 
         public IEnumerable<Human> GetHumans(IEnumerable<string> ids)
         {
-            return ids.Select(id => GetHuman(id));
+            return ids.Where(t => _characters.ContainsKey(t))
+                .Select(t => _characters[t])
+                .OfType<Human>();
         }
 
         public Droid GetDroid(string id)

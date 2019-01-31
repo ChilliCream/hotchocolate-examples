@@ -4,6 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using HotChocolate.AspNetCore;
 using HotChocolate;
 using HotChocolate.Execution.Configuration;
+using MongoDB.Driver;
+using HotChocolate.Utilities;
+using MongoDB.Bson;
 
 namespace HotChocolate.Examples.Paging
 {
@@ -13,11 +16,17 @@ namespace HotChocolate.Examples.Paging
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            // If you need dependency injection with your query object add your query type as a services.
-            // services.AddSingleton<Query>();
+            // setup type conversion for object id
+            TypeConversion.Default.Register<string, ObjectId>(from => ObjectId.Parse(from));
+            TypeConversion.Default.Register<ObjectId, string>(from => from.ToString());
 
-            // enable InMemory messaging services for subscription support.
-            // services.AddInMemorySubscriptionProvider();
+            // setup the repositories
+            services.AddSingleton<IMongoClient>(new MongoClient("mongodb://127.0.0.1:27017"));
+            services.AddSingleton<IMongoDatabase>(s => s.GetRequiredService<IMongoClient>().GetDatabase("PagingDemo"));
+            services.AddSingleton<IMongoCollection<Message>>(s => s.GetRequiredService<IMongoDatabase>().GetCollection<Message>("messages"));
+            services.AddSingleton<IMongoCollection<User>>(s => s.GetRequiredService<IMongoDatabase>().GetCollection<User>("users"));
+            services.AddSingleton<MessageRepository>();
+            services.AddSingleton<UserRepository>();
 
             // this enables you to use DataLoader in your resolvers.
             services.AddDataLoaderRegistry();
@@ -25,9 +34,9 @@ namespace HotChocolate.Examples.Paging
             // Add GraphQL Services
             services.AddGraphQL(Schema.Create(c =>
             {
-                // enable for authorization support
-                // c.RegisterAuthorizeDirectiveType();
-                c.RegisterQueryType<Query>();
+                c.RegisterQueryType<QueryType>();
+                c.RegisterMutationType<MutationType>();
+                c.RegisterExtendedScalarTypes();
             }),
             new QueryExecutionOptions { EnableTracing = true });
         }
@@ -40,11 +49,7 @@ namespace HotChocolate.Examples.Paging
                 app.UseDeveloperExceptionPage();
             }
 
-            // enable this if you want tu support subscription.
-            // app.UseWebSockets();
             app.UseGraphQL();
-            // enable this if you want to use graphiql instead of playground.
-            // app.UseGraphiQL();
             app.UsePlayground();
         }
     }

@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
+using GreenDonut;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using HotChocolate.Language;
 
 namespace HotChocolate.Examples.Paging
 {
-    public class Query
-    {
-
-    }
-
     public class Message
     {
         public ObjectId Id { get; set; }
@@ -78,7 +76,7 @@ namespace HotChocolate.Examples.Paging
             return _userCollection.InsertOneAsync(user, new InsertOneOptions(), cancellationToken);
         }
 
-        public async Task<IDictionary<ObjectId, User>> GetUserAsync(
+        public async Task<IReadOnlyDictionary<ObjectId, User>> GetUsersAsync(
             IReadOnlyCollection<ObjectId> userIds,
             CancellationToken cancellationToken)
         {
@@ -103,7 +101,17 @@ namespace HotChocolate.Examples.Paging
         {
             descriptor.Field(t => t.Id).Type<NonNullType<IdType>>();
             descriptor.Field(t => t.Text).Type<NonNullType<StringType>>();
-            descriptor.Field(t => t.UserId).Type<NonNullType<IdType>>();
+            descriptor.Field("createdBy").Type<NonNullType<UserType>>().Resolver(ctx =>
+            {
+                UserRepository repository = ctx.Service<UserRepository>();
+
+                IDataLoader<ObjectId, User> dataLoader = ctx.DataLoader<ObjectId, User>(
+                    "UserById",
+                    keys => repository.GetUsersAsync(keys, ctx.RequestAborted));
+
+                return dataLoader.LoadAsync(ctx.Parent<Message>().UserId);
+            });
+            descriptor.Ignore(t => t.UserId);
         }
     }
 
@@ -164,12 +172,23 @@ namespace HotChocolate.Examples.Paging
         public ObjectId UserId { get; set; }
     }
 
+    public class MessageInputType
+        : InputObjectType<MessageInput>
+    {
+        protected override void Configure(IInputObjectTypeDescriptor<MessageInput> descriptor)
+        {
+            descriptor.Field(t => t.Text).Type<NonNullType<StringType>>();
+            descriptor.Field(t => t.UserId).Type<NonNullType<IdType>>();
+        }
+    }
+
     public class MutationType
         : ObjectType<Mutation>
     {
         protected override void Configure(IObjectTypeDescriptor<Mutation> descriptor)
         {
             descriptor.Field(t => t.CreateMessageAsync(default, default, default))
+                .Argument("messageInput", a => a.Type<NonNullType<MessageInputType>>())
                 .Type<MessageType>();
 
             descriptor.Field(t => t.CreateUserAsync(default, default, default))

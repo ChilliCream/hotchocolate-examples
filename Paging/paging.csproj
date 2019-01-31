@@ -22,6 +22,7 @@
     <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="0.7.0-preview.41" />
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="0.7.0-preview.41" />
     <PackageReference Include="HotChocolate.Subscriptions.InMemory" Version="0.7.0-preview.41" />
+    <PackageReference Include="MongoDB.Driver" Version="2.7.3" />
   </ItemGroup>
 
 </Project>

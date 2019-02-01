@@ -6,5 +6,6 @@ namespace HotChocolate.Examples.Paging
     {
         public string Text { get; set; }
         public ObjectId UserId { get; set; }
+        public ObjectId? ReplyToId { get; set; }
     }
 }

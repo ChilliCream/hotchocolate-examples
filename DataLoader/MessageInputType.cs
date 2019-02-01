@@ -9,6 +9,7 @@ namespace HotChocolate.Examples.Paging
         {
             descriptor.Field(t => t.Text).Type<NonNullType<StringType>>();
             descriptor.Field(t => t.UserId).Type<NonNullType<IdType>>();
+            descriptor.Field(t => t.ReplyToId).Type<IdType>();
         }
     }
 }

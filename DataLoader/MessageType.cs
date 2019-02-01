@@ -24,13 +24,18 @@ namespace HotChocolate.Examples.Paging
             });
             descriptor.Field("replyTo").Type<NonNullType<MessageType>>().Resolver(ctx =>
             {
-                MessageRepository repository = ctx.Service<MessageRepository>();
+                ObjectId? replyToId = ctx.Parent<Message>().ReplyToId;
+                if (replyToId.HasValue)
+                {
+                    MessageRepository repository = ctx.Service<MessageRepository>();
 
-                IDataLoader<ObjectId, Message> dataLoader = ctx.CacheDataLoader<ObjectId, Message>(
-                    "MessageById",
-                    repository.GetMessageById);
+                    IDataLoader<ObjectId, Message> dataLoader = ctx.CacheDataLoader<ObjectId, Message>(
+                        "MessageById",
+                        repository.GetMessageById);
 
-                return dataLoader.LoadAsync(ctx.Parent<Message>().ReplyToId);
+                    return dataLoader.LoadAsync(ctx.Parent<Message>().ReplyToId.Value);
+                }
+                return null;
             });
             descriptor.Ignore(t => t.UserId);
             descriptor.Ignore(t => t.ReplyToId);

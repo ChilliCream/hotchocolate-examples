@@ -15,6 +15,7 @@ namespace HotChocolate.Examples.Paging
             {
                 Text = messageInput.Text,
                 UserId = messageInput.UserId,
+                ReplyToId = messageInput.ReplyToId,
                 Created = DateTimeOffset.UtcNow,
             };
 

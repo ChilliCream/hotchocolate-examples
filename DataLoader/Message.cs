@@ -11,6 +11,6 @@ namespace HotChocolate.Examples.Paging
         public DateTimeOffset Created { get; set; }
         public int Favorites { get; set; }
         public ObjectId UserId { get; set; }
-        public ObjectId ReplyToId { get; set; }
+        public ObjectId? ReplyToId { get; set; }
     }
 }

@@ -17,12 +17,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="0.7.0-rc.2" />
-    <PackageReference Include="HotChocolate.AspNetCore.GraphiQL" Version="0.7.0-rc.2" />
-    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="0.7.0-rc.2" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="0.7.0-rc.2" />
-    <PackageReference Include="HotChocolate.Subscriptions.InMemory" Version="0.7.0-rc.2" />
     <PackageReference Include="MongoDB.Driver" Version="2.7.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\hotchocolate\src\Core\Core\Core.csproj" />
+    <ProjectReference Include="..\..\hotchocolate\src\Server\AspNetCore\AspNetCore.csproj" />
   </ItemGroup>
 
 </Project>

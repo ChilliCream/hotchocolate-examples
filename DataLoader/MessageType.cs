@@ -22,7 +22,7 @@ namespace HotChocolate.Examples.Paging
 
                 return dataLoader.LoadAsync(ctx.Parent<Message>().UserId);
             });
-            descriptor.Field("replyTo").Type<NonNullType<MessageType>>().Resolver(ctx =>
+            descriptor.Field("replyTo").Type<MessageType>().Resolver(async ctx =>
             {
                 ObjectId? replyToId = ctx.Parent<Message>().ReplyToId;
                 if (replyToId.HasValue)
@@ -33,7 +33,7 @@ namespace HotChocolate.Examples.Paging
                         "MessageById",
                         repository.GetMessageById);
 
-                    return dataLoader.LoadAsync(ctx.Parent<Message>().ReplyToId.Value);
+                    return await dataLoader.LoadAsync(ctx.Parent<Message>().ReplyToId.Value);
                 }
                 return null;
             });

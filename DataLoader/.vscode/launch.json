@@ -9,19 +9,10 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.1/paging.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.1/DataLoader.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
-            "stopAtEntry": false,
-            "launchBrowser": {
-                "enabled": true
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            }
+            "stopAtEntry": false
         },
         {
             "name": ".NET Core Attach",

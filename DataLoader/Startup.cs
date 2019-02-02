@@ -50,7 +50,7 @@ namespace HotChocolate.Examples.Paging
             }
 
             app.UseGraphQL();
-            app.UsePlayground();
+            //app.UsePlayground();
         }
     }
 }

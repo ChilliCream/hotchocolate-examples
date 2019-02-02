@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/paging.csproj"
+                "${workspaceFolder}/DataLoader.csproj"
             ],
             "problemMatcher": "$tsc"
         }

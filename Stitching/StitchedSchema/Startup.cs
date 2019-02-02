@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
+using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,12 +37,10 @@ namespace Demo.Stitching
                 .SetSchema(File.ReadAllText("./Contract.graphql"))
                 .AddScalarType<DateTimeType>());
 
-            services.AddGraphQL(Schema.Create(
-                File.ReadAllText("./Stitching.graphql"),
+            services.AddStitchedSchema(
+                File.ReadAllText("./MergedSchema.graphql"),
                 c =>
                 {
-                    c.RegisterType<DateTimeType>();
-
                     // you can add middlewars on a stitched schema just like on local schemas:
                     c.Use(next => async context =>
                     {
@@ -54,14 +54,16 @@ namespace Demo.Stitching
                         }
                     });
 
-                    c.UseSchemaStitching();
-                })
-                .MakeExecutable(b => b.UseStitchingPipeline(
-                    new QueryExecutionOptions
-                    {
-                        // this enables appollo tracing on the stitched schema
-                        EnableTracing = true
-                    })));
+                    c.Map(new FieldReference("Customer", "foo"),
+                        next => context =>
+                        {
+                            var obj = context.Parent<OrderedDictionary>();
+                            context.Result = obj["name"] + "_" + obj["id"];
+                            return Task.CompletedTask;
+                        });
+                        
+                    c.RegisterType<DateTimeType>();
+                });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

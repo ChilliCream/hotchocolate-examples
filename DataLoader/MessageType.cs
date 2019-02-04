@@ -18,7 +18,7 @@ namespace HotChocolate.Examples.Paging
 
                 IDataLoader<ObjectId, User> dataLoader = ctx.BatchDataLoader<ObjectId, User>(
                     "UserById",
-                    keys => repository.GetUsersAsync(keys, ctx.RequestAborted));
+                    repository.GetUsersAsync);
 
                 return dataLoader.LoadAsync(ctx.Parent<Message>().UserId);
             });

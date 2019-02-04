@@ -22,9 +22,9 @@ namespace HotChocolate.Examples.Paging
                     var userRepository = ctx.Service<UserRepository>();
 
                     IDataLoader<string, User[]> userDataLoader =
-                        ctx.GroupedDataLoader<string, User>(
+                        ctx.GroupDataLoader<string, User>(
                             "usersByCountry",
-                            k => userRepository.GetUsersByCountry(k, ctx.RequestAborted));
+                            userRepository.GetUsersByCountry);
 
                     return userDataLoader.LoadAsync(ctx.Argument<string>("country"));
                 });

@@ -17,3 +17,5 @@ docker run --name mongo -p 27017:27017 -d mongo mongod
 ```
 
 If you don't have docker or do not want to use it you can install mongo from here: [https://www.mongodb.com/download-center/community](https://www.mongodb.com/download-center/community).
+
+[Hot Chocolate Documentation](https://hotchocolate.io) 

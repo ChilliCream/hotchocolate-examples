@@ -6,6 +6,7 @@ using HotChocolate.AspNetCore;
 using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
 using HotChocolate.Resolvers;
+using HotChocolate.Stitching;
 using HotChocolate.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,20 +29,14 @@ namespace Demo.Stitching
                 client.BaseAddress = new Uri("http://127.0.0.1:5051");
             });
 
-            services.AddRemoteQueryExecutor(b => b
-                .SetSchemaName("customer")
-                .SetSchema(File.ReadAllText("./Customer.graphql")));
+            services.AddSingleton<IQueryResultSerializer, JsonQueryResultSerializer>();
 
-            services.AddRemoteQueryExecutor(b => b
-                .SetSchemaName("contract")
-                .SetSchema(File.ReadAllText("./Contract.graphql"))
-                .AddScalarType<DateTimeType>());
-
-            services.AddStitchedSchema(
-                File.ReadAllText("./MergedSchema.graphql"),
-                c =>
+            services.AddStitchedSchema(builder => builder
+                .AddSchemaFromHttp("customer")
+                .AddSchemaFromHttp("contract")
+                .AddExtensionsFromFile("./Extensions.graphql")
+                .AddSchemaConfiguration(c =>
                 {
-                    // you can add middlewars on a stitched schema just like on local schemas:
                     c.Use(next => async context =>
                     {
                         await next(context);
@@ -61,9 +56,7 @@ namespace Demo.Stitching
                             context.Result = obj["name"] + "_" + obj["id"];
                             return Task.CompletedTask;
                         });
-                        
-                    c.RegisterType<DateTimeType>();
-                });
+                }));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

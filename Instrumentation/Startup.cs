@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using HotChocolate.Execution;
-using HotChocolate.Execution.Instrumentation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DiagnosticAdapter;
-using Microsoft.Extensions.Logging;
 
-namespace log
+namespace Instrumentation
 {
     public class Startup
     {
@@ -22,9 +16,9 @@ namespace log
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGraphQL(c =>
-            {
-                c.RegisterQueryType<Query>();
-            });
+           {
+               c.RegisterQueryType<Query>();
+           });
 
             services.AddDiagnosticObserver<DiagnosticObserver>();
 
@@ -42,40 +36,10 @@ namespace log
             app.UseGraphQL();
             app.UsePlayground();
 
-            app.UseRouting(routes =>
+            app.Run(async (context) =>
             {
-                routes.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                await context.Response.WriteAsync("Hello World!");
             });
-        }
-    }
-
-    public class Query
-    {
-        public string Hello() => "world";
-    }
-
-    public class DiagnosticObserver
-        : IDiagnosticObserver
-    {
-        private readonly ILogger _logger;
-        public DiagnosticObserver(ILogger<Program> logger)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
-
-        [DiagnosticName("HotChocolate.Execution.Query")]
-        public void OnQuery(IQueryContext context)
-        {
-            // ... your code
-        }
-
-        [DiagnosticName("HotChocolate.Execution.Query.Start")]
-        public void BeginQueryExecute(IQueryContext context)
-        {
-            _logger.LogInformation(context.Request.Query);
         }
     }
 }

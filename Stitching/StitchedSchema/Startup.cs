@@ -16,6 +16,8 @@ namespace Demo.Stitching
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
+
             // Setup the clients that shall be used to access the remote endpoints.
             services.AddHttpClient("customer", (sp, client) =>
             {
@@ -32,7 +34,7 @@ namespace Demo.Stitching
 
             services.AddHttpContextAccessor();
 
-            services.AddSingleton<IQueryResultSerializer, JsonQueryResultSerializer>();
+            services.AddDiagnosticObserver<DiagnosticObserver>();
 
             services.AddStitchedSchema(builder => builder
                 .AddSchemaFromHttp("customer")

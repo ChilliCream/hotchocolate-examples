@@ -2,12 +2,10 @@
 using HotChocolate;
 using HotChocolate.Subscriptions;
 using HotChocolate.Types;
-using StarWars.Models;
 using StarWars.Repositories;
 
 namespace StarWars.Reviews
 {
-
     [ExtendObjectType(Name = "Mutation")]
     public class ReviewMutations
     {

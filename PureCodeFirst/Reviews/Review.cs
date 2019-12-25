@@ -1,6 +1,6 @@
 using System;
 
-namespace StarWars.Models
+namespace StarWars.Reviews
 {
     /// <summary>
     /// A review of a particular movie.

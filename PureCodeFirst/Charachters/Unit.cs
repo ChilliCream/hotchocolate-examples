@@ -1,4 +1,4 @@
-namespace StarWars.Models
+namespace StarWars.Characters
 {
     /// <summary>
     /// Different units of measurement.

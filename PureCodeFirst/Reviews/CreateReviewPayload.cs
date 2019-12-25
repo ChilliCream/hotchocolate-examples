@@ -1,5 +1,4 @@
 using StarWars.Characters;
-using StarWars.Models;
 
 namespace StarWars.Reviews
 {

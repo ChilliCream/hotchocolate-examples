@@ -1,7 +1,6 @@
 ﻿using HotChocolate.Language;
 using HotChocolate.Subscriptions;
 using StarWars.Characters;
-using StarWars.Models;
 
 namespace StarWars.Reviews
 {

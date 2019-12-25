@@ -3,7 +3,6 @@ using HotChocolate;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
 using StarWars.Characters;
-using StarWars.Models;
 using StarWars.Repositories;
 
 namespace StarWars.Reviews

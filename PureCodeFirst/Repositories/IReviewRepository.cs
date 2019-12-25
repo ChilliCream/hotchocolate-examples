@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using StarWars.Characters;
-using StarWars.Models;
+using StarWars.Reviews;
 
 namespace StarWars.Repositories
 {

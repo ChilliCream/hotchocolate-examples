@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
-using StarWars.Models;
 
 namespace StarWars.Characters
 {

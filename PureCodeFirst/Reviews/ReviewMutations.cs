@@ -1,12 +1,15 @@
 ﻿using System.Threading.Tasks;
 using HotChocolate;
 using HotChocolate.Subscriptions;
+using HotChocolate.Types;
 using StarWars.Models;
 using StarWars.Repositories;
 
 namespace StarWars.Reviews
 {
-    public class Mutation
+
+    [ExtendObjectType(Name = "Mutation")]
+    public class ReviewMutations
     {
         /// <summary>
         /// Creates a review for a given Star Wars episode.

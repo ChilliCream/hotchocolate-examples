@@ -7,6 +7,8 @@ using HotChocolate;
 using HotChocolate.AspNetCore;
 using StarWars.Repositories;
 using StarWars.Characters;
+using StarWars.Reviews;
+using HotChocolate.Subscriptions;
 
 namespace StarWars
 {
@@ -21,14 +23,18 @@ namespace StarWars
             services.AddSingleton<IReviewRepository, ReviewRepository>();
 
             // Add in-memory event provider
-            // services.AddInMemorySubscriptionProvider();
+            services.AddInMemorySubscriptionProvider();
 
             // Add GraphQL Services
             services.AddGraphQL(sp => SchemaBuilder.New()
                 .AddServices(sp)
                 .AddQueryType(d => d.Name("Query"))
                 .AddMutationType(d => d.Name("Mutation"))
+                .AddSubscriptionType(d => d.Name("Subscription"))
                 .AddType<CharacterQueries>()
+                .AddType<ReviewQueries>()
+                .AddType<ReviewMutations>()
+                .AddType<ReviewSubscriptions>()
                 .AddType<Human>()
                 .AddType<Droid>()
                 .AddType<Starship>()

@@ -27,7 +27,7 @@ namespace StarWars.Characters
 
                         if (context.Result is double length)
                         {
-                            context.Result = ConvertToUnit(length, context.Argument<Unit>("uint"));
+                            context.Result = ConvertToUnit(length, context.Argument<Unit>("unit"));
                         }
                     });
             }

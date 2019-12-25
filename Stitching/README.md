@@ -8,10 +8,10 @@ This example consists of the following projects:
   The customer schema contains a GraphQL server that serves up a schema around a customer entity.
 
 - ContractSchema
-  The contract schema contains a GraphQL server that serves up a schema that provides insurance contract entities that can be assoicated with customers.
+  The contract schema contains a GraphQL server that serves up a schema that provides insurance contract entities that can be associated with customers.
 
-- Stitching
-  The stitching project contains a GraphQL server that stitches the former mentiond GraphQL schemas together.
+- Gateway
+  The stitching project contains a GraphQL server that stitches the former mentioned GraphQL schemas together.
 
 1. Start the customer and contract servers with `dotnet run`
 2. When the former servers are running start the stitching server with `dotnet run`

@@ -1,14 +1,16 @@
 using System;
 using System.Threading.Tasks;
-using HotChocolate;
-using HotChocolate.AspNetCore;
-using HotChocolate.Execution;
-using HotChocolate.Resolvers;
-using HotChocolate.Stitching;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using HotChocolate;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Subscriptions;
+using HotChocolate.Execution;
+using HotChocolate.Resolvers;
+using HotChocolate.Stitching;
+
 
 namespace Demo.Stitching
 {
@@ -33,6 +35,8 @@ namespace Demo.Stitching
             services.AddHttpContextAccessor();
 
             services.AddSingleton<IQueryResultSerializer, JsonQueryResultSerializer>();
+
+            services.AddGraphQLSubscriptions();
 
             services.AddStitchedSchema(builder => builder
                 .AddSchemaFromHttp("customer")

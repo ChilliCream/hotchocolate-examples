@@ -17,12 +17,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="0.8.0" />
-    <PackageReference Include="HotChocolate.AspNetCore.GraphiQL" Version="0.8.0" />
-    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="0.8.0" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="0.8.0" />
-    <PackageReference Include="HotChocolate.Subscriptions.InMemory" Version="0.8.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.7.3" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.0-rc.2" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.0-rc.2" />
+    <PackageReference Include="HotChocolate.Stitching" Version="10.3.0-rc.2" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+   <None Update="**\*.graphql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
 </Project>

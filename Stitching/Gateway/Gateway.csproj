@@ -17,9 +17,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.0-rc.2" />
-    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.0-rc.2" />
-    <PackageReference Include="HotChocolate.Stitching" Version="10.3.0-rc.2" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.0" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.0" />
+    <PackageReference Include="HotChocolate.Stitching" Version="10.3.0" />
   </ItemGroup>
   
   <ItemGroup>

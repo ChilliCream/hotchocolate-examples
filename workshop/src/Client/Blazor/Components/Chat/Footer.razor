@@ -1,0 +1,38 @@
+﻿<div class="chat-message">
+  <textarea
+    class="chat-message-textbox"
+    name="message-to-send"
+    id="message-to-send"
+    placeholder="Type your message"
+    rows="3"
+    @bind="_message"
+    @onkeypress="Typing"
+  ></textarea>
+  <div class="chat-message-footer">
+    @*<div class="chat-message-actions">
+      <span class="chat-message-file fa fa-file-o"></span>
+      <span class="chat-message-image fa fa-file-image-o"></span>
+    </div>*@
+    <button class="chat-message-send" @onclick="OnClickSend">Send</button>
+  </div>
+</div>
+
+@code {
+    private string _message = "";
+
+    [Parameter]
+    public EventCallback<string> ClickSend { get; set; }
+
+    [Parameter]
+    public EventCallback Typing { get; set; }
+
+    private async Task OnClickSend()
+    {
+        if (ClickSend.HasDelegate && !string.IsNullOrWhiteSpace(_message))
+        {
+            await ClickSend.InvokeAsync(_message);
+            _message = "";
+            StateHasChanged();
+        }
+    }
+}

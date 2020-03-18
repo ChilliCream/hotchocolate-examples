@@ -1,0 +1,121 @@
+query getPeople($userId: ID!) {
+  ...people
+}
+
+query getPeopleAndRecipient($userId: ID!, $recipientId: ID!) {
+  ...people
+  ...recipientById
+}
+
+query getRecipient($recipientId: ID!) {
+  ...recipientById
+}
+
+mutation sendMessage($recipientEmail: String!, $text: String!) {
+  sendMessage(input: { recipientEmail: $recipientEmail, text: $text }) {
+    message {
+      ...message
+    }
+  }
+}
+
+mutation signIn($signIn: LoginInput!) {
+  login(input: $signIn) {
+    me {
+      ...person
+    }
+    scheme
+    token
+  }
+}
+
+mutation signUp($newUser: CreateUserInput!) {
+  createUser(input: $newUser) {
+    user {
+      email
+    }
+  }
+}
+
+mutation userIsTyping($writingTo : String!) {
+  typing(input: { writingTo: $writingTo }) {
+    clientMutationId
+  }
+}
+
+subscription onMessageReceived {
+  message: onMessageReceived {
+    ...message
+  }
+}
+
+subscription onUserOnlineStatusChanged {
+  onOnline {
+    ...hasPersonId
+  }
+}
+
+subscription onUserIsTyping {
+  recipient: onTyping {
+    ...hasPersonId
+  }
+}
+
+fragment message on Message {
+  direction
+  id
+  recipient {
+    ...participant
+  }
+  sender {
+    ...participant
+  }
+  sent
+  text
+}
+
+fragment participant on Person {
+  id
+  name
+  isOnline
+}
+
+fragment people on Query {
+  people(where: { id_not: $userId }) {
+    nodes {
+      ...person
+    }
+  }
+}
+
+fragment person on Person {
+  ...hasPersonId
+  name
+  ...hasPersonEmail
+  imageUri
+  isOnline
+  lastSeen
+}
+
+fragment hasPersonId on Person {
+  id
+}
+
+fragment hasPersonEmail on Person {
+  email
+}
+
+fragment recipientById on Query {
+  personById(id: $recipientId) {
+    ...recipient
+  }
+}
+
+fragment recipient on Person {
+  ...person
+  messages (order_by: { sent: ASC }) {
+    nodes {
+      ...message
+    }
+  }
+}

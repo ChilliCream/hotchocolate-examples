@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>Chat.Server</AssemblyName>
+    <RootNamespace>Chat.Server</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.4.0-rc.0" />
+    <PackageReference Include="HotChocolate.Types.Filters" Version="10.4.0-rc.0" />
+    <PackageReference Include="HotChocolate.Types.Sorting" Version="10.4.0-rc.0" />
+    <PackageReference Include="HotChocolate.Subscriptions.InMemory" Version="10.4.0-rc.0" />
+    <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="10.4.0-rc.0" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.4.0-rc.0" />
+    <PackageReference Include="HotChocolate.AspNetCore.Voyager" Version="10.4.0-rc.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.10.1" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,2 @@
+schema: "./src/Client/Blazor/Chat.graphql"
+documents: "./src/CLient/Blazor/Queries.graphql"

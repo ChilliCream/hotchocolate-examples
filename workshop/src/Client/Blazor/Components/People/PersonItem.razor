@@ -1,0 +1,39 @@
+﻿<li class="person--@User.GetIsRecipient(Recipient)" 
+    @onclick="OnClickPerson">
+    <img class="person-avatar"
+         src="img/chillicream-logo.svg"
+         alt="person-avatar" />
+    <div class="person-about">
+        <div class="person-name">@User.Name</div>
+        <div class="person-status">
+            <span class="status-icon--@User.GetStatus() fa fa-circle"></span>
+            @if (@User.IsOnline)
+            {
+                <span class="status-text">@User.GetStatus()</span>
+            }
+            else
+            {
+                <span class="status-text">@User.LastSeen</span>
+            }
+        </div>
+    </div>
+</li>
+
+@code {
+    [Parameter]
+    public EventCallback<IPerson> ClickPerson { get; set; }
+
+    [Parameter]
+    public IPerson User { get; set; }
+
+    [Parameter]
+    public IRecipient Recipient { get; set; }
+
+    private async Task OnClickPerson()
+    {
+        if (ClickPerson.HasDelegate)
+        {
+            await ClickPerson.InvokeAsync(User);
+        }
+    }
+}

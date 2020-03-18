@@ -1,0 +1,27 @@
+﻿<li class="message--@Message.GetDirection()">
+  <div class="message-data">
+    @if (@Message.Direction == Direction.Incoming)
+    {
+      <span class="status-icon--@Sender.GetStatus() fa fa-circle"></span>
+      <span class="message-data-name">@Sender.Name</span>
+      <span class="message-data-time">@Message.Sent</span>
+    }
+    else
+    {
+      <span class="message-data-time">@Message.Sent</span>
+      <span class="message-data-name">@Sender.Name</span>
+      <span class="status-icon-viewer fa fa-circle"></span>
+    }
+  </div>
+  <div class="message-text">
+    @Message.Text
+  </div>
+</li>
+
+@code {
+    [Parameter]
+    public IMessage Message { get; set; }
+
+    [Parameter]
+    public IParticipant Sender { get; set; }
+}

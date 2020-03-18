@@ -1,0 +1,65 @@
+<div class="dialog">
+  <header>
+    <h1>Sign In</h1>
+    <p>Please fill in the form to sign in!</p>
+  </header>
+
+  <EditForm
+    Model="@_model"
+    OnValidSubmit="OnValidSubmit"
+  >
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    @if (ShowInvalidCredentialError)
+    {
+      <div class="wrong-credentials">Wrong credentials.</div>
+    }
+
+    <label>
+      <InputText
+        type="email"
+        placeholder="Email"
+        @bind-Value="@_model.Email"
+      />
+    </label>
+
+    <label>
+      <InputText
+        type="password"
+        placeholder="Password"
+        @bind-Value="@_model.Password"
+      />
+    </label>
+
+    <button type="submit">Sign In</button>
+  </EditForm>
+
+  <footer>
+    <p>
+      Don't have an account yet?
+      Sign up <a href="javascript:void(0);" @onclick="ClickSignUp">here</a>.
+    </p>
+  </footer>
+</div>
+
+@code {
+    private readonly SignInModel _model = new SignInModel();
+
+    [Parameter]
+    public EventCallback ClickSignUp { get; set; }
+
+    [Parameter]
+    public bool ShowInvalidCredentialError { get; set; }
+
+    [Parameter]
+    public EventCallback<SignInModel> HandleSignIn { get; set; }
+
+    private async Task OnValidSubmit()
+    {
+        if (HandleSignIn.HasDelegate)
+        {
+            await HandleSignIn.InvokeAsync(_model);
+        }
+    }
+}

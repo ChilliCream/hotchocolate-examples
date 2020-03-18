@@ -1,0 +1,169 @@
+@using System.Collections.Immutable;
+@using System.Diagnostics;
+@inject IChatClient ChatClient
+@inject ISessionStorageService SessionStore
+@inject TypingTracking TypingTracking;
+
+<PeopleList
+  IsLoading="@_isLoadingPeople"
+  People="@_people"
+  Recipient="@_recipient"
+  ClickPerson="OnClickPerson"
+/>
+
+<MessageList
+  IsLoading="@_isLoadingRecipient"
+  IsTyping="@_isChatParticipantTyping"
+  Recipient="@_recipient"
+  Messages="@_messages"
+  ClickSend="OnSendMessage"
+  Typing="OnTyping"
+/>
+
+@code {
+    private readonly Stopwatch _typing = Stopwatch.StartNew();
+    private bool _isLoadingPeople = true;
+    private bool _isLoadingRecipient = false;
+    private bool _isChatParticipantTyping = false;
+    private IPersonConnection? _people;
+    private IRecipient? _recipient;
+    private ImmutableList<IMessage> _messages = ImmutableList<IMessage>.Empty;
+
+    [Parameter]
+    public EventCallback ClickSignOut { get; set; }
+
+    [Parameter]
+    public IPerson User { get; set; } = default(IPerson);
+
+    protected override async Task OnInitializedAsync()
+    {
+        var recipientId = await SessionStore.GetItemAsync<string>("RecipientId");
+
+        if (string.IsNullOrWhiteSpace(recipientId))
+        {
+            await LoadPeople(User.Id);
+        }
+        else
+        {
+            await LoadPeopleAndRecipient(User.Id, recipientId);
+        }
+
+        BeginReceiveMessages();
+
+        TypingTracking.Typing += (sender, args) => 
+        {
+            _isChatParticipantTyping = args.IsTyping;
+            StateHasChanged();
+        };
+        TypingTracking.Begin();
+
+        _isLoadingPeople = false;
+        StateHasChanged();
+    }
+
+    private async Task OnClickPerson(IPerson person)
+    {
+        var operation = await ChatClient.GetRecipientAsync(person.Id);
+
+        if (operation.IsNotAuthenticted() && ClickSignOut.HasDelegate)
+        {
+            await ClickSignOut.InvokeAsync(null);
+        }
+
+        _recipient = operation.Data?.PersonById;
+        _messages = ImmutableList<IMessage>.Empty;
+        TypingTracking.SetRecipient(_recipient);
+
+        if (_recipient == null)
+        {
+            await SessionStore.RemoveItemAsync("RecipientId");
+        }
+        else
+        {
+            _messages = ImmutableList.CreateRange<IMessage>(_recipient.Messages.Nodes);
+            await SessionStore.SetItemAsync("RecipientId", _recipient.Id);
+        }
+    }
+
+    private async Task OnSendMessage(string message)
+    {
+        if(_recipient is { })
+        {
+            var result = await ChatClient.SendMessageAsync(_recipient.Email, message);
+
+            if(!result.HasErrors && result.Data is { })
+            {
+                _messages = _messages.Add(result.Data.SendMessage.Message);
+                StateHasChanged();
+            }
+        }
+    }
+
+    private async Task OnTyping()
+    {
+        if(_recipient is { } && _typing.ElapsedMilliseconds > 250) 
+        {
+            await ChatClient.UserIsTypingAsync(_recipient.Email);
+            _typing.Restart();
+        }
+    }
+
+    private async Task LoadPeople(string userId)
+    {
+        var operation = await ChatClient.GetPeopleAsync(userId);
+
+        if (operation.IsNotAuthenticted() && ClickSignOut.HasDelegate)
+        {
+            await ClickSignOut.InvokeAsync(null);
+        }
+
+        _people = operation.Data?.People;
+    }
+
+    private async Task LoadPeopleAndRecipient(string userId, string recipientId)
+    {
+        var operation = await ChatClient.GetPeopleAndRecipientAsync(userId, recipientId);
+
+        if (operation.IsNotAuthenticted() && ClickSignOut.HasDelegate)
+        {
+            await ClickSignOut.InvokeAsync(null);
+        }
+
+        if (operation.IsNonNullViolation())
+        {
+            await SessionStore.RemoveItemAsync("RecipientId");
+            await LoadPeople(string.Empty);
+        }
+
+        _people = operation.Data?.People;
+        _recipient = operation.Data?.PersonById;
+    }
+
+    private void BeginReceiveMessages()
+    {
+        Task.Run(async () =>
+        {
+            Console.WriteLine("start listening for messages ...");
+
+            IResponseStream<IOnMessageReceived> messageStream =
+                await ChatClient.OnMessageReceivedAsync();
+
+            Console.WriteLine("started listening for messages ...");
+
+            await foreach(IOperationResult<IOnMessageReceived> response in messageStream)
+            {
+                Console.WriteLine("evaluating message ...");
+
+                if(!response.HasErrors
+                    && response.Data is { }
+                    && _recipient is { }
+                    && _recipient.Id == response.Data.Message.Sender.Id)
+                {
+                    Console.WriteLine("commiting message ...");
+                    _messages = _messages.Add(response.Data.Message);
+                    StateHasChanged();
+                }
+            }
+        });
+    }
+}

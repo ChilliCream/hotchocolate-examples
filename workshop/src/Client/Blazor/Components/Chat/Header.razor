@@ -1,0 +1,24 @@
+﻿<div class="chat-header">
+  <img
+    class="chat-avatar--@Recipient.GetStatus()"
+    src="@Recipient.GetPicture()"
+    alt="avatar"
+  />
+  <div class="chat-about">
+      <div class="chat-with">Chat with @Recipient.Name</div>
+      <div class="chat-num-messages">already @Recipient.Messages.Nodes.Count() messages</div>
+      @if (IsTyping)
+      {
+          <TypingIndicator />
+      }
+  </div>
+  <span class="favorite-icon fa fa-star"></span>
+</div>
+
+@code {
+    [Parameter]
+    public IRecipient? Recipient { get; set; }
+
+    [Parameter]
+    public bool IsTyping { get; set; }
+}

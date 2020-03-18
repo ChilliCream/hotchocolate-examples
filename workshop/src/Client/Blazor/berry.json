@@ -1,0 +1,11 @@
+{
+  "Schemas": [
+    {
+      "Name": "Chat",
+      "Type": "http",
+      "File": "Chat.graphql",
+      "Url": "http://localhost:5000/"
+    }
+  ],
+  "ClientName": "ChatClient"
+}

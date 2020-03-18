@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="10.4.0-rc.1" />
+    <PackageReference Include="HotChocolate.Types.Filters" Version="10.4.0-rc.1" />
+    <PackageReference Include="HotChocolate.Types.Sorting" Version="10.4.0-rc.1" />
+    <PackageReference Include="HotChocolate.Types.Selections" Version="10.4.0-rc.1" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.4.0-rc.1" />
+  </ItemGroup>
+
+</Project>

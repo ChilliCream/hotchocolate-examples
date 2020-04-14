@@ -10,7 +10,7 @@ using HotChocolate.AspNetCore.Subscriptions;
 using HotChocolate.Execution;
 using HotChocolate.Resolvers;
 using HotChocolate.Stitching;
-
+using System.Collections.Generic;
 
 namespace Demo.Stitching
 {
@@ -38,6 +38,8 @@ namespace Demo.Stitching
 
             services.AddGraphQLSubscriptions();
 
+            services.AddQueryDelegationRewriter<AddCreatedByIdQueryRewriter>();
+
             services.AddStitchedSchema(builder => builder
                 .AddSchemaFromHttp("customer")
                 .AddSchemaFromHttp("contract")
@@ -45,6 +47,21 @@ namespace Demo.Stitching
                 .RenameType("LifeInsuranceContract", "LifeInsurance")
                 .AddSchemaConfiguration(c =>
                 {
+                    c.Use(next => async context =>
+                    {
+                        await next(context);
+
+                        if (context.Result is IReadOnlyDictionary<string, object> map)
+                        {
+                            
+                        }
+
+                        if (context.Result is IReadOnlyList<object> list)
+                        {
+                            map = (IReadOnlyDictionary<string, object>)list[0];
+                        }
+                    });
+
                     // custom resolver that depends on data from a remote schema.
                     c.Map(new FieldReference("Customer", "foo"), next => context =>
                     {

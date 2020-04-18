@@ -11,7 +11,7 @@ namespace Chat.Server
         internal static byte[] SharedSecret = Encoding.ASCII.GetBytes(
             "abcdefghijklmnopqrstuvwxyz1234567890");
 
-        private void ConfigureAuthenticationServices(IServiceCollection services)
+        void ConfigureAuthenticationServices(IServiceCollection services)
         {
             // configure jwt authentication
             services

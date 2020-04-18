@@ -11,7 +11,7 @@ namespace Chat.Server.People
     public class PersonRepository
         : IPersonRepository
     {
-        private readonly IMongoCollection<Person> _persons;
+        readonly IMongoCollection<Person> _persons;
 
         public PersonRepository(IMongoCollection<Person> persons)
         {

@@ -10,7 +10,7 @@ namespace Chat.Server.People
     public class PersonByEmailDataLoader
         : BatchDataLoader<string, Person>
     {
-        private readonly ChatDbContext _dbContext;
+        readonly ChatDbContext _dbContext;
 
         public PersonByEmailDataLoader(ChatDbContext dbContext) => _dbContext = dbContext;
 

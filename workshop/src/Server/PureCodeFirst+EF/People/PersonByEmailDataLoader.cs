@@ -18,6 +18,6 @@ namespace Chat.Server.People
             IReadOnlyList<string> keys, CancellationToken cancellationToken) =>
             await _dbContext.People
                 .Where(t => keys.Contains(t.Email))
-                .ToDictionaryAsync(t => t.Email, cancellationToken: cancellationToken);
+                .ToDictionaryAsync(t => t.Email, cancellationToken);
     }
 }

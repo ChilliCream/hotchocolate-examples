@@ -48,7 +48,7 @@ namespace Chat.Server.Messages
                 Sent = DateTime.UtcNow
             };
 
-            dbContext.Messages.Add(message);
+            await dbContext.Messages.AddAsync(message, cancellationToken);
             await dbContext.SaveChangesAsync(cancellationToken);
 
             await eventSender.SendAsync(recipient.Email, message, cancellationToken);

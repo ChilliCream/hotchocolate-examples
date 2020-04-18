@@ -2,12 +2,8 @@ namespace Chat.Server.People
 {
     public class TypingPayload
     {
-        public TypingPayload(Person recipient, Person sender, string? clientMutationId)
-        {
-            Recipient = recipient;
-            Sender = sender;
-            ClientMutationId = clientMutationId;
-        }
+        public TypingPayload(Person recipient, Person sender, string? clientMutationId) =>
+            (Recipient, Sender, ClientMutationId) = (recipient, sender, clientMutationId);
 
         /// <summary>
         /// The person to which a message is being typed.

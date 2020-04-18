@@ -12,17 +12,12 @@ namespace Chat.Server.People
     {
         private readonly ChatDbContext _dbContext;
 
-        public PersonByEmailDataLoader(ChatDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        public PersonByEmailDataLoader(ChatDbContext dbContext) => _dbContext = dbContext;
 
         protected override async Task<IReadOnlyDictionary<string, Person>> LoadBatchAsync(
-            IReadOnlyList<string> keys, CancellationToken cancellationToken)
-        {
-            return await _dbContext.People
+            IReadOnlyList<string> keys, CancellationToken cancellationToken) =>
+            await _dbContext.People
                 .Where(t => keys.Contains(t.Email))
-                .ToDictionaryAsync(t => t.Email);
-        }
+                .ToDictionaryAsync(t => t.Email, cancellationToken: cancellationToken);
     }
 }

@@ -33,9 +33,6 @@ namespace Chat.Server
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) => 
                     config.AddEnvironmentVariables())
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
     }
 }

@@ -2,11 +2,8 @@ namespace Chat.Server.Users
 {
     public class CreateUserPayload
     {
-        public CreateUserPayload(User user, string? clientMutationId)
-        {
-            User = user;
-            ClientMutationId = clientMutationId;
-        }
+        public CreateUserPayload(User user, string? clientMutationId) =>
+            (User, ClientMutationId) = (user, clientMutationId);
 
         public User User { get; }
 

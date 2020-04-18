@@ -14,10 +14,8 @@ namespace Chat.Server.Messages
         public async Task<IAsyncEnumerable<Message>> OnMessageReceivedAsync(
             [GlobalState]string currentUserEmail,
             [Service]ITopicEventReceiver eventReceiver,
-            CancellationToken cancellationToken)
-        {
-            return await eventReceiver.SubscribeAsync<string, Message>(
+            CancellationToken cancellationToken) =>
+            await eventReceiver.SubscribeAsync<string, Message>(
                 currentUserEmail, cancellationToken);
-        }
     }
 }

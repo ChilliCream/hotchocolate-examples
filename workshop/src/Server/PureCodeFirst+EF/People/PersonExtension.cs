@@ -20,12 +20,10 @@ namespace Chat.Server.People
         public IQueryable<Message> GetMessages(
             [GlobalState]Guid currentPersonId,
             [Parent]Person recipient,
-            [Service]ChatDbContext dbContext)
-        {
-            return dbContext.Messages.Where(t =>
+            [Service]ChatDbContext dbContext) =>
+            dbContext.Messages.Where(t =>
                 (t.RecipientId == currentPersonId && t.SenderId == recipient.Id)
                 || (t.SenderId == currentPersonId && t.RecipientId == recipient.Id));
-        }
 
         [UsePaging]
         [UseSelection]
@@ -34,7 +32,7 @@ namespace Chat.Server.People
         public IQueryable<Person> GetFriends(
             [Parent]Person person,
             [Service]ChatDbContext dbContext) =>
-            dbContext.People.Where(t => t.Id == person.Id)
-                .SelectMany(t => t.Friends.Select(t => t.Friend));
+            dbContext.People.Where(p => p.Id == person.Id)
+                .SelectMany(p => p.Friends.Select(t => t.Friend));
     }
 }

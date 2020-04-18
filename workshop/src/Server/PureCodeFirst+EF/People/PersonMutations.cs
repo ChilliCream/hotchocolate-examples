@@ -45,13 +45,13 @@ namespace Chat.Server.People
 
             people[0].Friends.Add(new PersonToFriend
             {
-                PersionId = people[0].Id,
+                PersonId = people[0].Id,
                 FriendId = people[1].Id
             });
 
             people[1].Friends.Add(new PersonToFriend
             {
-                PersionId = people[1].Id,
+                PersonId = people[1].Id,
                 FriendId = people[0].Id
             });
 

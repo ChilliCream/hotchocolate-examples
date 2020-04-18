@@ -20,7 +20,6 @@ namespace Chat.Server.People
             [Service]ChatDbContext dbContext) =>
             dbContext.People.Where(t => t.Email == currentUserEmail);
 
-
         /// <summary>
         /// Gets access to all the people known to this service.
         /// </summary>

@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-
 namespace Chat.Server.People
 {
     public class InviteFriendPayload

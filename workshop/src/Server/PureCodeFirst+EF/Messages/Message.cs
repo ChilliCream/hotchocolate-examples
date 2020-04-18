@@ -1,5 +1,4 @@
 using System;
-using Chat.Server.People;
 using HotChocolate;
 
 #nullable disable

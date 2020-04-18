@@ -2,15 +2,8 @@ namespace Chat.Server.Messages
 {
     public class SendMessageInput
     {
-        public SendMessageInput(
-            string recipientEmail,
-            string text,
-            string? clientMutationId)
-        {
-            RecipientEmail = recipientEmail;
-            Text = text;
-            ClientMutationId = clientMutationId;
-        }
+        public SendMessageInput(string recipientEmail, string text, string? clientMutationId) =>
+            (RecipientEmail, Text, ClientMutationId) = (recipientEmail, text, clientMutationId);
 
         /// <summary>
         /// The email of the person to which a message shall be send.

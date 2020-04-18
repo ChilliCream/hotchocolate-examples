@@ -14,7 +14,6 @@ using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Voyager;
 using HotChocolate.Execution.Configuration;
 using HotChocolate.Types;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Chat.Server

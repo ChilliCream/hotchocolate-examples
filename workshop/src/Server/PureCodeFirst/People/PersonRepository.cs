@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -58,51 +57,43 @@ namespace Chat.Server.People
 
         public async Task AddPersonAsync(
             Person person,
-            CancellationToken cancellationToken)
-        {
+            CancellationToken cancellationToken) =>
             await _persons.InsertOneAsync(
-                person,
-                options: default,
-                cancellationToken)
+                    person,
+                    default,
+                    cancellationToken)
                 .ConfigureAwait(false);
-        }
 
         public async Task UpdatePersonAsync(
             Person person,
-            CancellationToken cancellationToken)
-        {
+            CancellationToken cancellationToken) =>
             await _persons.ReplaceOneAsync(
-                Builders<Person>.Filter.Eq(t => t.Id, person.Id),
-                person,
-                options: default(ReplaceOptions),
-                cancellationToken)
+                    Builders<Person>.Filter.Eq(t => t.Id, person.Id),
+                    person,
+                    default(ReplaceOptions),
+                    cancellationToken)
                 .ConfigureAwait(false);
-        }
 
         public async Task UpdateLastSeenAsync(
             Guid id,
             DateTime lastSeen,
-            CancellationToken cancellationToken)
-        {
+            CancellationToken cancellationToken) =>
             await _persons.UpdateOneAsync(
-                Builders<Person>.Filter.Eq(t => t.Id, id),
-                Builders<Person>.Update.Set(t => t.LastSeen, lastSeen),
-                options: default,
-                cancellationToken)
+                    Builders<Person>.Filter.Eq(t => t.Id, id),
+                    Builders<Person>.Update.Set(t => t.LastSeen, lastSeen),
+                    default,
+                    cancellationToken)
                 .ConfigureAwait(false);
-        }
 
         public async Task AddFriendIdAsync(
             Guid id,
             Guid friendId,
-            CancellationToken cancellationToken)
-        {
+            CancellationToken cancellationToken) =>
             await _persons.UpdateOneAsync(
-                Builders<Person>.Filter.Eq(t => t.Id, id),
-                Builders<Person>.Update.AddToSet(t => t.FriendIds, friendId),
-                options: default,
-                cancellationToken)
+                    Builders<Person>.Filter.Eq(t => t.Id, id),
+                    Builders<Person>.Update.AddToSet(t => t.FriendIds, friendId),
+                    default,
+                    cancellationToken)
                 .ConfigureAwait(false);
-        }
     }
 }

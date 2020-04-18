@@ -9,7 +9,7 @@ namespace Chat.Server.Messages
     public class MessageRepository
         : IMessageRepository
     {
-        private readonly IMongoCollection<Message> _messages;
+        readonly IMongoCollection<Message> _messages;
 
         public MessageRepository(IMongoCollection<Message> messages)
         {
@@ -28,22 +28,18 @@ namespace Chat.Server.Messages
 
         public IQueryable<Message> GetMessages(
             Guid senderId,
-            Guid recipientId)
-        {
-            return _messages.AsQueryable().Where(t =>
+            Guid recipientId) =>
+            _messages.AsQueryable().Where(t =>
                 (t.SenderId == senderId && t.RecipientId == recipientId)
                 || (t.RecipientId == senderId && t.SenderId == recipientId));
-        }
 
         public async Task AddMessageAsync(
             Message message,
-            CancellationToken cancellationToken)
-        {
+            CancellationToken cancellationToken) =>
             await _messages.InsertOneAsync(
-                message,
-                options: default,
-                cancellationToken)
+                    message,
+                    default,
+                    cancellationToken)
                 .ConfigureAwait(false);
-        }
     }
 }

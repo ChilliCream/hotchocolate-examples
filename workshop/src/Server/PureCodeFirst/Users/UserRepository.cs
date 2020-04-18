@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -9,7 +8,7 @@ namespace Chat.Server.Users
     public class UserRepository
         : IUserRepository
     {
-        private readonly IMongoCollection<User> _users;
+        readonly IMongoCollection<User> _users;
 
         public UserRepository(IMongoCollection<User> users)
         {
@@ -40,7 +39,7 @@ namespace Chat.Server.Users
             CancellationToken cancellationToken)
         {
             await _users.InsertOneAsync(
-                user, options: default, cancellationToken)
+                user, default, cancellationToken)
                 .ConfigureAwait(false);
         }
 
@@ -55,7 +54,7 @@ namespace Chat.Server.Users
                 Builders<User>.Update.Combine(
                     Builders<User>.Update.Set(t => t.PasswordHash, newPasswordHash),
                     Builders<User>.Update.Set(t => t.Salt, salt)),
-                options: default,
+                default,
                 cancellationToken)
                 .ConfigureAwait(false);
         }

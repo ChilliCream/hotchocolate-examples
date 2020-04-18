@@ -36,21 +36,17 @@ namespace Chat.Server.Messages
         public async Task<Person> GetSenderAsync(
             [Parent]Message message,
             PersonByIdDataLoader personById,
-            CancellationToken cancellationToken)
-        {
-            return await personById.LoadAsync(
-                message.SenderId, cancellationToken)
+            CancellationToken cancellationToken) =>
+            await personById.LoadAsync(
+                    message.SenderId, cancellationToken)
                 .ConfigureAwait(false);
-        }
 
         public async Task<Person> GetRecipientAsync(
             [Parent]Message message,
             PersonByIdDataLoader personById,
-            CancellationToken cancellationToken)
-        {
-            return await personById.LoadAsync(
-                message.RecipientId, cancellationToken)
+            CancellationToken cancellationToken) =>
+            await personById.LoadAsync(
+                    message.RecipientId, cancellationToken)
                 .ConfigureAwait(false);
-        }
     }
 }

@@ -23,10 +23,8 @@ namespace Chat.Server.People
             [GlobalState]Guid currentPersonId,
             [Parent]Person recipient,
             [Service]IMessageRepository repository,
-            CancellationToken cancellationToken)
-        {
-            return repository.GetMessages(currentPersonId, recipient.Id);
-        }
+            CancellationToken cancellationToken) =>
+            repository.GetMessages(currentPersonId, recipient.Id);
 
         [UsePaging]
         [UseFiltering]
@@ -34,11 +32,9 @@ namespace Chat.Server.People
         public async Task<IEnumerable<Person>> GetFriendsAsync(
             [Parent]Person recipient,
             PersonByIdDataLoader personById,
-            CancellationToken cancellationToken)
-        {
-            return await personById.LoadAsync(
-                recipient.FriendIds, cancellationToken)
+            CancellationToken cancellationToken) =>
+            await personById.LoadAsync(
+                    recipient.FriendIds, cancellationToken)
                 .ConfigureAwait(false);
-        }
     }
 }

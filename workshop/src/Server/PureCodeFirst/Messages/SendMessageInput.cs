@@ -1,5 +1,3 @@
-using System;
-
 namespace Chat.Server.Messages
 {
     public class SendMessageInput

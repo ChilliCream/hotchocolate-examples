@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using HotChocolate;
 
@@ -43,10 +42,7 @@ namespace Chat.Server.People
 
         public Person AddFriendId(Guid id)
         {
-            if (FriendIds.Contains(id))
-            {
-                return this;
-            }
+            if (FriendIds.Contains(id)) return this;
 
             return new Person(
                 Id,

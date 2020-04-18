@@ -159,7 +159,7 @@ namespace Chat.Server.Users
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             string tokenString = tokenHandler.WriteToken(token);
 
-            await eventSender.SendAsync<string, Person>("online", me);
+            await eventSender.SendAsync("online", me, cancellationToken);
 
             return new LoginPayload(me, tokenString, "bearer", input.ClientMutationId);
         }

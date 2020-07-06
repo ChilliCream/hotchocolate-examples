@@ -38,6 +38,11 @@ namespace Instrumentation
         [DiagnosticName("HotChocolate.Execution.Query.Stop")]
         public void EndQueryExecute(IQueryContext context)
         {
+            if (!_logger.IsEnabled(LogLevel.Information))
+            {
+                return;
+            }
+        
             using (var stream = new MemoryStream())
             {
                 var resultSerializer = new JsonQueryResultSerializer();

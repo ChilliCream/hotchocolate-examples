@@ -32,7 +32,8 @@ namespace Demo.Gateway
                 .AddRemoteSchema(Accounts, ignoreRootTypes: true)
                 .AddRemoteSchema(Inventory, ignoreRootTypes: true)
                 .AddRemoteSchema(Products, ignoreRootTypes: true)
-                .AddRemoteSchema(Reviews, ignoreRootTypes: true);
+                .AddRemoteSchema(Reviews, ignoreRootTypes: true)
+                .AddTypeExtensionsFromString("type Query { }");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HotChocolate.Language;
+using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -29,11 +25,11 @@ namespace Demo.Gateway
 
             services
                 .AddGraphQLServer()
-                .AddRemoteSchema(Accounts, ignoreRootTypes: true)
-                .AddRemoteSchema(Inventory, ignoreRootTypes: true)
-                .AddRemoteSchema(Products, ignoreRootTypes: true)
-                .AddRemoteSchema(Reviews, ignoreRootTypes: true)
-                .AddTypeExtensionsFromString("type Query { }");
+                .AddQueryType(d => d.Name("Query"))
+                .AddRemoteSchema(Accounts)
+                .AddRemoteSchema(Inventory)
+                .AddRemoteSchema(Products)
+                .AddRemoteSchema(Reviews);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

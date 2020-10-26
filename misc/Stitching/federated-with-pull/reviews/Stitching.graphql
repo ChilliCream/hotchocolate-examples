@@ -1,7 +1,7 @@
 extend type User {
-  reviews: [Review] @delegate(schema: "reviews" path:"reviewsByAuthor(authorId: $fields:id)")
+  reviews: [Review] @delegate(path:"reviewsByAuthor(authorId: $fields:id)")
 }
 
 extend type Product {
-  reviews: [Review] @delegate(schema: "reviews" path:"reviewsByProduct(upc: $fields:upc)")
+  reviews: [Review] @delegate(path:"reviewsByProduct(upc: $fields:upc)")
 }

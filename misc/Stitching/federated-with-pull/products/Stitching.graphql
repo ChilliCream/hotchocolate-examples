@@ -1,7 +1,7 @@
 extend type Query {
-  topProducts(first: Int = 5): [Product] @delegate(schema: "products")
+  topProducts(first: Int = 5): [Product] @delegate
 }
 
 extend type Review {
-  product: Product @delegate(schema: "products", path: "product(upc: $fields:upc)")
+  product: Product @delegate(path: "product(upc: $fields:upc)")
 }

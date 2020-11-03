@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-preview.166" />
-    <PackageReference Include="HotChocolate.Stitching" Version="11.0.0-preview.166" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-preview.178" />
+    <PackageReference Include="HotChocolate.Stitching" Version="11.0.0-preview.178" />
   </ItemGroup>
 </Project>

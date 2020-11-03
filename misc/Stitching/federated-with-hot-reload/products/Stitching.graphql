@@ -1,0 +1,7 @@
+extend type Query {
+  topProducts(first: Int = 5): [Product] @delegate
+}
+
+extend type Review {
+  product: Product @delegate(path: "product(upc: $fields:upc)")
+}

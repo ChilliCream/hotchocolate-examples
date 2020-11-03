@@ -1,0 +1,1 @@
+docker run --name redis-stitching -p 7000:6379 -d redis

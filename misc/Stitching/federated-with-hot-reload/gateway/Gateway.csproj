@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-preview.177" />
+    <PackageReference Include="HotChocolate.Stitching.Redis" Version="11.0.0-preview.177" />
+  </ItemGroup>
+
+</Project>

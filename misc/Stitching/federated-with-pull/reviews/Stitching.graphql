@@ -1,0 +1,7 @@
+extend type User {
+  reviews: [Review] @delegate(path:"reviewsByAuthor(authorId: $fields:id)")
+}
+
+extend type Product {
+  reviews: [Review] @delegate(path:"reviewsByProduct(upc: $fields:upc)")
+}

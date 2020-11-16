@@ -1,0 +1,7 @@
+extend type Query {
+  me: User! @delegate(path: "user(id: 1)")
+}
+
+extend type Review {
+  author: User @delegate(path: "user(id: $fields:authorId)")
+}

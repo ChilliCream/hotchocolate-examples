@@ -1,20 +1,29 @@
-# Schema Stitching Example
+# Schema Stitching Examples
 
-This example shows how you can implement as stitched schema with Hot Chocolate.
+The following examples show different approaches to schema stitching. In general, there are two kinds you can build your gateway. Either you put the stitching logic into the gateway or distribute the stitching logic to the downstream services. As always, we let you also have stitching logic in the gateway and the downstream services.
 
-This example consists of the following projects:
+**Why should I have stitching logic in my gateway?**
+There are various reasons to have stitching logic in your gateway like you want to have a general logic that rewrites types based on patterns. The most common reason is you do not have control over the downstream service; this could be due to the downstream service being controlled by another department that uses a completely different toolset that does not support Hot Chocolate remote schema configurations. But there are a lot of other reasons to keep part or all stitching configurations in the gateway.
 
-- CustomerSchema
-  The customer schema contains a GraphQL server that serves up a schema around a customer entity.
+**Why should I have stitching logic in my downstream services?**
+Again there are lots of reasons to organize your schema in a federated configuration. Distributing schema configurations to the downstream services gives you the flexibility to organize the configurations and schema parts to which they belong. Changing your stitching configuration does not force you to redeploy your gateway, which gives you more flexibility with stitched schemas.
 
-- ContractSchema
-  The contract schema contains a GraphQL server that serves up a schema that provides insurance contract entities that can be associated with customers.
+## Centralized Configuration
 
-- Gateway
-  The stitching project contains a GraphQL server that stitches the former mentioned GraphQL schemas together.
+`./centralized`
 
-1. Start the customer and contract servers with `dotnet run`
-2. When the former servers are running start the stitching server with `dotnet run`
-3. Head over to `http://127.0.0.1/playground` and test out some queries.
+The folder `centralized` shows you a schema stitching example where we put the schema configuration into the gateway. The downstream services do not have any knowledge that they are being stitched into a larger schema.
 
-[Hot Chocolate Documentation](https://hotchocolate.io)
+## Federated Configuration through GraphQL
+
+`./federated-with-pull`
+
+The simplest way to create a federated schema configuration is to publish the configuration on the downstream service's schema. A downstream service can expose multiple configurations for multiple gateways. 
+The gateway will automatically detect if your downstream service exposes a configuration and uses the configuration instead of auto-stitching the schema.
+
+## Federated Configuration through Redis
+
+`./federated-with-hot-reload`
+
+Another more powerful solution is to publish schema configurations to Redis. This will keep the schema of your downstream service clean and allow you to hot-reload the gateway schema whenever there is a change in the downstream services. Moreover, we will keep the schema configuration on Redis. If you have a problem with your downstream service and it becomes offline, the gateway schema definition is no longer affected.
+

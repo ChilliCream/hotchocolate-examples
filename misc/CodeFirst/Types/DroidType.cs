@@ -1,5 +1,4 @@
 ﻿using HotChocolate.Types;
-using HotChocolate.Types.Relay;
 using StarWars.Models;
 using StarWars.Resolvers;
 

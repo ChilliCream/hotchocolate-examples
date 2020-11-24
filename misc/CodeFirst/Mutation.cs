@@ -26,10 +26,10 @@ namespace StarWars
         /// <returns>The created review.</returns>
         public async Task<Review> CreateReview(
             Episode episode, Review review,
-            [Service]IEventSender eventSender)
+            [Service]ITopicEventSender eventSender)
         {
             _repository.AddReview(episode, review);
-            await eventSender.SendAsync(new OnReviewMessage(episode, review));
+            await eventSender.SendAsync(episode, review);
             return review;
         }
     }

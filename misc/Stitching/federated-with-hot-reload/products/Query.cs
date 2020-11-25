@@ -5,9 +5,9 @@ namespace Demo.Products
 {
     public class Query
     {
-        public IEnumerable<Product> GetTopProducts(
-            int first, 
-            [Service] ProductRepository repository) =>
+        public IEnumerable<Product> GetTopProducts( 
+            [Service] ProductRepository repository,
+            int first = 5) =>
             repository.GetTopProducts(first);
 
         public Product GetProduct(

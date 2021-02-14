@@ -11,7 +11,7 @@ namespace Logging
 {
     public class MiniProfilerQueryLogger : DiagnosticEventListener
     {
-        private static MiniProfiler _miniProfiler;
+        private static MiniProfiler _miniProfiler = null!;
 
         // this diagnostic event is raised when a request is executed ...
         public override IActivityScope ExecuteRequest(IRequestContext context)
@@ -46,17 +46,17 @@ namespace Logging
                 string htmlText;
                 using (MiniProfiler.Current.Ignore()) // this does not seem to ignore as documented
                 {
-                    htmlText = CreateHtmlFromDocument(queryString, variables);
+                    htmlText = CreateHtmlFromDocument(queryString, variables, _queryTimer);
                 }
 
                 _miniProfiler?.AddCustomLink(htmlText, "#");
                 _miniProfiler?.Stop();
             }
 
-            private string CreateHtmlFromDocument(DocumentNode queryString, IVariableValueCollection variables)
+            private static string CreateHtmlFromDocument(DocumentNode? queryString, IVariableValueCollection? variables, Stopwatch queryTimer)
             {
                 StringBuilder htmlText = new();
-                if (_context.Document is not null)
+                if (queryString != null)
                 {
                     var divWithBorder =
                         "<div style=\"border: 1px solid black;align-items: flex-start;margin-left: 10%;margin-right: 15%; padding: 5px\">";
@@ -75,11 +75,11 @@ namespace Logging
 
                     htmlText.AppendLine("</div>");
 
-                    if (_context.Variables is not null)
+                    if (variables != null)
                     {
                         try
                         {
-                            var variablesConcrete = _context.Variables!.ToList();
+                            var variablesConcrete = variables.ToList();
                             if (variablesConcrete.Count > 0)
                             {
                                 htmlText.AppendLine(divWithBorder);
@@ -104,7 +104,7 @@ namespace Logging
 
                     htmlText.AppendLine(divWithBorder);
                     htmlText.AppendFormat(
-                        $"Execution time inside query is {_queryTimer.Elapsed.TotalMilliseconds:0.#} milliseconds.");
+                        $"Execution time inside query is {queryTimer.Elapsed.TotalMilliseconds:0.#} milliseconds.");
                     htmlText.AppendLine("</div>");
                 }
 

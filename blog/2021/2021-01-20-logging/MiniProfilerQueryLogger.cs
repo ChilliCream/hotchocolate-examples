@@ -75,7 +75,7 @@ namespace Logging
 
                     htmlText.AppendLine("</div>");
 
-                    if (variables != null)
+                    if (variables is not null)
                     {
                         try
                         {

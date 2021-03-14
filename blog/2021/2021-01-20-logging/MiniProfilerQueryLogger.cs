@@ -11,8 +11,6 @@ namespace Logging
 {
     public class MiniProfilerQueryLogger : DiagnosticEventListener
     {
-        private static MiniProfiler _miniProfiler = null!;
-
         // this diagnostic event is raised when a request is executed ...
         public override IActivityScope ExecuteRequest(IRequestContext context)
         {
@@ -23,15 +21,15 @@ namespace Logging
 
         private class RequestScope : IActivityScope
         {
+            private readonly MiniProfiler _miniProfiler;
             private readonly IRequestContext _context;
             private readonly Stopwatch _queryTimer;
 
             public RequestScope(IRequestContext context)
             {
-                _context = context;
                 _miniProfiler = MiniProfiler.StartNew("Hot Chocolate GraphQL Query");
-                _queryTimer = new Stopwatch();
-                _queryTimer.Start();
+                _context = context;
+                _queryTimer = Stopwatch.StartNew();
             }
 
             public void Dispose()
@@ -56,7 +54,7 @@ namespace Logging
             private static string CreateHtmlFromDocument(DocumentNode? queryString, IVariableValueCollection? variables, Stopwatch queryTimer)
             {
                 StringBuilder htmlText = new();
-                if (queryString != null)
+                if (queryString is not null)
                 {
                     var divWithBorder =
                         "<div style=\"border: 1px solid black;align-items: flex-start;margin-left: 10%;margin-right: 15%; padding: 5px\">";

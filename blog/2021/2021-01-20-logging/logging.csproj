@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.8" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.8" />
-    <PackageReference Include="HotChocolate.Data" Version="11.0.8" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.9" />
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
   </ItemGroup>
 

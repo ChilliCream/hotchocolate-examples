@@ -10,7 +10,7 @@ namespace Logging
 {
     public class ConsoleQueryLogger : DiagnosticEventListener
     {
-        private static Stopwatch _queryTimer;
+        private static Stopwatch _queryTimer = null!;
         private readonly ILogger<ConsoleQueryLogger> _logger;
 
         public ConsoleQueryLogger(ILogger<ConsoleQueryLogger> logger)

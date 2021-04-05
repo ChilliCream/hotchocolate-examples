@@ -5,12 +5,12 @@ using HotChocolate.Types.Relay;
 
 namespace MongoDB
 {
-    [Node(
+    [Node( 
+        IdField = nameof(Id), 
         NodeResolverType = typeof(PersonNodeResolver),
         NodeResolver = nameof(PersonNodeResolver.ResolveAsync))]
     public class Person
     {
-        [ID]
         public Guid Id { get; init; }
 
         public string Name { get; init; }

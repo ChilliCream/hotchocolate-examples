@@ -1,8 +1,8 @@
 using System;
 using HotChocolate;
 using HotChocolate.Data;
-using HotChocolate.Types;
-using HotChocolate.Types.Relay;
+using HotChocolate.Types; 
+using HotChocolate.Types.Relay; 
 using MongoDB.Driver;
 
 namespace MongoDB
@@ -20,8 +20,8 @@ namespace MongoDB
 
         [UseFirstOrDefault]
         public IExecutable<Person> GetPersonById(
-            [Service] IMongoCollection<Person> collection,
-            [ID]Guid id)
+            [Service] IMongoCollection<Person> collection, 
+            [ID]Guid id) 
         {
             return collection.Find(x => x.Id == id).AsExecutable();
         }

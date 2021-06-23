@@ -10,8 +10,6 @@ namespace StarWars.Types
     {
         protected override void Configure(IObjectTypeDescriptor<Human> descriptor)
         {
-            descriptor.Interface<CharacterType>();
-
             descriptor.Field(t => t.Id)
                 .Type<NonNullType<IdType>>();
 

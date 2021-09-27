@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Person",
+    "extension": true,
+    "fields": ["dynamicField"]
+  },
+  {
+    "name": "Cat",
+    "extension": false,
+    "fields": ["name"]
+  }
+]

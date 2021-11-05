@@ -4,7 +4,6 @@ public record RegisterStudentInput(string LastName, string FirstName);
 
 public record RegisterStudentPayload(Student Student);
 
-
 [ExtendObjectType(OperationTypeNames.Mutation)]
 public class RegisterStudentMutation
 {

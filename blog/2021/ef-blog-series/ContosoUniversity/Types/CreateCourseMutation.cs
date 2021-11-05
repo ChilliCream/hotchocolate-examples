@@ -4,6 +4,7 @@ public record CreateCourseInput(string Title, int Credits);
 
 public record CreateCoursePayload(Course course);
 
+[ExtendObjectType(OperationTypeNames.Mutation)]
 public class CreateCourseMutation
 {
     public async Task<CreateCoursePayload> CreateCourse(

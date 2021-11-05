@@ -10,6 +10,7 @@ public record GradeStudentPayload(int EnrollmentId)
         => context.Enrollments.Where(e => e.EnrollmentId == EnrollmentId);
 }
 
+[ExtendObjectType(OperationTypeNames.Mutation)]
 public class GradeStudentMutation
 {
     public async Task<GradeStudentPayload> GradeStudentAsync(

@@ -19,6 +19,30 @@ var app = builder.Build();
 
 app.MapGraphQL();
 
-app.Services.GetRequiredService<SchoolContext>().Database.EnsureCreated();
+await using (var serviceScope = app.Services.CreateAsyncScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<SchoolContext>();
+    if (await context.Database.EnsureCreatedAsync())
+    {
+        context.Courses.Add(new Course
+        {
+            Title = "Computer Science",
+            Enrollments = new List<Enrollment>
+            {
+                new Enrollment
+                {
+                    Student = new Student
+                    {
+                        LastName = "Doe",
+                        FirstName = "John",
+                        EnrollmentDate = DateTime.Now
+                    }
+                }
+            }
+        });
 
-app.Run();
+        await context.SaveChangesAsync();
+    }
+}
+
+await app.RunAsync();

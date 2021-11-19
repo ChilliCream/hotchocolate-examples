@@ -18,10 +18,10 @@ namespace Demo.Gateway
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient(Accounts, c => c.BaseAddress = new Uri("http://localhost:5051/graphql"));
-            services.AddHttpClient(Inventory, c => c.BaseAddress = new Uri("http://localhost:5052/graphql"));
-            services.AddHttpClient(Products, c => c.BaseAddress = new Uri("http://localhost:5053/graphql"));
-            services.AddHttpClient(Reviews, c => c.BaseAddress = new Uri("http://localhost:5054/graphql"));
+            services.AddHttpClient(Accounts, c => c.BaseAddress = new Uri("http://localhost:8001/graphql"));
+            services.AddHttpClient(Inventory, c => c.BaseAddress = new Uri("http://localhost:8002/graphql"));
+            services.AddHttpClient(Products, c => c.BaseAddress = new Uri("http://localhost:8003/graphql"));
+            services.AddHttpClient(Reviews, c => c.BaseAddress = new Uri("http://localhost:8004/graphql"));
 
             services
                 .AddGraphQLServer()

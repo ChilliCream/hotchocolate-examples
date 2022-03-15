@@ -17,6 +17,6 @@ namespace Demo.Reviews
         public IEnumerable<Review> GetReviewsByProduct(
             [Service] ReviewRepository repository,
             int upc) =>
-            repository.GetReviewsByAuthorId(upc);
+            repository.GetReviewsByProductId(upc);
     }
 }

@@ -1,0 +1,42 @@
+{
+    "Mutation Class": {
+        "prefix": "mutation",
+        "body": [
+            "public class Mutation",
+            "{",
+            "}"
+        ],
+        "description": "Mutation Class"
+    },
+    "UploadProfilePicture": {
+        "prefix": "upload",
+        "body": [
+            "public async Task<Author> UploadProfilePicture(int authorId, IFile file)",
+            "{",
+            "    ",
+            "}"
+        ],
+        "description": "UploadProfilePicture"
+    },
+    "FilePath": {
+        "prefix": "path",
+        "body": [
+            "Path.Combine(ImageDirectory, $\"{authorId}.png\")"
+        ],
+        "description": "FilePath"
+    },
+    "Return Author": {
+        "prefix": "return",
+        "body": [
+            "return new Author(authorId, \"Jon Skeet\");"
+        ],
+        "description": "Return Author"
+    },
+    "Upload Type": {
+        "prefix": "ut",
+        "body": [
+            ".AddType<UploadType>()"
+        ],
+        "description": "Upload Type"
+    }
+}

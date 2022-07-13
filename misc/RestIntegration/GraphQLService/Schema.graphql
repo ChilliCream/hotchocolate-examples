@@ -1,0 +1,14 @@
+type Author {
+    id: Int! @fromJson
+    name: String! @fromJson
+}
+
+extend type Book {
+    author: Author 
+        @variable(name: "authorId", fromParent: "authorId")
+        @http(
+            clientName: "rest",
+            method: GET
+            requestUri: "authors/{authorId}",
+            headers: null)
+}

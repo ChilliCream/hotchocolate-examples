@@ -1,0 +1,93 @@
+{
+    "_defaultPipeline": {
+        "prefix": "_defaultPipeline",
+        "body": [
+            ".UseInstrumentations()",
+            ".UseExceptions()",
+            ".UseTimeout()",
+            ".UseDocumentCache()",
+            ".UseDocumentParser()",
+            ".UseDocumentValidation()",
+            ".UseOperationCache()",
+            ".UseOperationComplexityAnalyzer()",
+            ".UseOperationResolver()",
+            ".UseOperationVariableCoercion()",
+            ".UseOperationExecution();"
+        ],
+        "description": "DefaultPipeline"
+    },
+    "_middleware": {
+        "prefix": "_middleware",
+        "body": [
+            ".UseRequest(next => async context => ",
+            "{",
+            "    Console.WriteLine($\"before next: {context.Document}\");",
+            "    await next(context);",
+            "    Console.WriteLine($\"after next: {context.Document}\");",
+            "})"
+        ],
+        "description": "_middleware"
+    },
+    "_fieldExtensions": {
+        "prefix": "_fieldExtensions",
+        "body": [
+            "public static class FieldExtensions",
+            "{",
+            "",
+            "}"
+        ],
+        "description": "_fieldExtensions"
+    },
+    "_UseToUpper": {
+        "prefix": "_UseToUpper",
+        "body": [
+            "public static IObjectFieldDescriptor UseToUpper(this IObjectFieldDescriptor descriptor)",
+            "    => descriptor.Use(next => async context =>",
+            "    {",
+            "        await next(context);",
+            "    });"
+        ],
+        "description": "_UseToUpper"
+    },
+    "_bookType": {
+        "prefix": "_bookType",
+        "body": [
+            "public class BookType : ObjectType<Book>",
+            "{",
+            "    protected override void Configure(IObjectTypeDescriptor<Book> descriptor)",
+            "    {",
+            "        descriptor",
+            "            .Field(t => t.Title)",
+            "            .UseToUpper();",
+            "    }",
+            "}"
+        ],
+        "description": "_bookType"
+    },
+    "_UseToUpperAttribute": {
+        "prefix": "_UseToUpperAttribute",
+        "body": [
+            "public sealed class UseToUpperAttribute : ObjectFieldDescriptorAttribute",
+            "{",
+            "    public override void OnConfigure(",
+            "        IDescriptorContext context,",
+            "        IObjectFieldDescriptor descriptor,",
+            "        MemberInfo member)",
+            "    {",
+            "        throw new NotImplementedException();",
+            "    }",
+            "}"
+        ],
+        "description": "_UseToUpperAttribute"
+    },
+    "_useToUpperConstr": {
+        "prefix": "_useToUpperConstr",
+        "body": [
+            "public UseToUpperAttribute([CallerLineNumber] int order = 0)",
+            "{",
+            "    Order = order;",
+            "}"
+        ],
+        "description": "_useToUpperConstr"
+    }
+}

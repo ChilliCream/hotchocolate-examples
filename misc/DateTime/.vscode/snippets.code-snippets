@@ -1,0 +1,22 @@
+{
+    "_query": {
+        "prefix": "_query",
+        "body": [
+            "namespace Demo.Types;",
+            "",
+            "public class Query",
+            "{",
+            "    ",
+            "}"
+        ],
+        "description": "_query"
+    },
+    "_GetAssets": {
+        "prefix": "_GetAssets",
+        "body": [
+            "public IQueryable<Asset> GetAssets(AssetContext context)",
+            "    => context.Assets;"
+        ],
+        "description": "_GetAssets"
+    }
+}

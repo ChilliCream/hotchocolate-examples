@@ -1,0 +1,8 @@
+query GetAssetBySymbol($symbol: String!) {
+  assetBySymbol(symbol: $symbol) {
+    symbol
+    price {
+      lastPrice
+    }
+  }
+}

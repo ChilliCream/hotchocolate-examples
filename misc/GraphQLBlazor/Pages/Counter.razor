@@ -1,0 +1,28 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<UseOnPriceChange Context="result">
+    <ChildContent>
+        @result.OnPriceChange.Symbol @result.OnPriceChange.LastPrice
+    </ChildContent>
+</UseOnPriceChange>
+
+<br />
+<br />
+<br />
+
+<UseGetAssets Context="result" Strategy="ExecutionStrategy.CacheFirst">
+    <ChildContent>
+    @if (result.Assets?.Nodes is not null)
+    {
+        @foreach (var asset in result.Assets.Nodes)
+        {
+            <p>@asset.Name (@asset.Price.LastPrice)</p>
+        } 
+    }
+    </ChildContent>
+    <LoadingContent>
+        Loading ...
+    </LoadingContent>
+</UseGetAssets>

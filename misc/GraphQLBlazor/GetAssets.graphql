@@ -1,0 +1,21 @@
+query GetAssets {
+  assets(order: { price: { marketCap: DESC } }) {
+    nodes {
+      ... AssetInfo
+    }
+  }
+}
+
+fragment AssetInfo on Asset {
+  id
+  name
+  price {
+    ... AssetPrice
+  }
+}
+
+fragment AssetPrice on AssetPrice {
+  id
+  symbol
+  lastPrice
+}

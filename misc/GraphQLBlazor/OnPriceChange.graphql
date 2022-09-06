@@ -1,0 +1,5 @@
+subscription OnPriceChange {
+  onPriceChange {
+    ... AssetPrice
+  }
+}

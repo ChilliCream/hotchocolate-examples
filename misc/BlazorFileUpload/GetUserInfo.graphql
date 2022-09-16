@@ -1,0 +1,11 @@
+query GetUserInfo {
+    me {
+        ... UserInfo_User
+    }
+}
+
+fragment UserInfo_User on User {
+    name
+    displayName
+    imageUrl
+}

@@ -1,0 +1,11 @@
+@code {
+    [Parameter, EditorRequired]
+    public IUserInfo_User User { get; set; } = default!;
+}
+
+<h3>UserInfo</h3>
+
+<b>@(User.DisplayName ?? User.Name)</b>
+<br />
+<br />
+<img src="@User.ImageUrl" alt="User Picture"/>

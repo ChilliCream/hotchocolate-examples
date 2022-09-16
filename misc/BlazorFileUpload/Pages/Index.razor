@@ -1,0 +1,37 @@
+﻿@page "/"
+@inject UploadProfilePictureMutation UploadProfilePicture; 
+
+@code {
+    private string? Url = null;
+
+    private async Task UploadProfilePictureAsync(
+        InputFileChangeEventArgs args)
+    {
+        await using var stream = args.File.OpenReadStream();
+        var profilePicture = new Upload(stream, args.File.Name);
+        var result = await UploadProfilePicture.ExecuteAsync(profilePicture);
+        if (result.IsSuccessResult())
+        {
+            Url = result.Data?.UpdateUserProfile.UpdatedUser?.ImageUrl;
+        }
+    }
+
+}
+
+<PageTitle>Index</PageTitle>
+
+<UseGetUserInfo Context="result" Strategy="ExecutionStrategy.CacheFirst">
+    <LoadingContent>
+        User data is being loaded ...
+    </LoadingContent>
+    <ChildContent>
+        <UserInfo User="@result.Me" />
+    </ChildContent>
+</UseGetUserInfo>
+
+<br /> 
+<br /> 
+
+<b>Change Profile Picture:</b>
+<InputFile OnChange="@UploadProfilePictureAsync" />
+

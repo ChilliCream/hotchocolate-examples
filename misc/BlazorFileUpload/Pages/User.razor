@@ -1,0 +1,12 @@
+﻿@page "/user"
+
+<PageTitle>User</PageTitle>
+
+<UseGetUserInfo Context="result" Strategy="ExecutionStrategy.CacheFirst">
+    <LoadingContent>
+        User data is being loaded ...
+    </LoadingContent>
+    <ChildContent>
+        <UserInfo User="@result.Me" />
+    </ChildContent>
+</UseGetUserInfo>

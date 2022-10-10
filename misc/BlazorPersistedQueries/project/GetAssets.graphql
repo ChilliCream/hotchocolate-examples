@@ -1,0 +1,11 @@
+query GetAssets {
+  assets {
+    nodes {
+      ...Index_Data
+    }
+  }
+}
+
+fragment Index_Data on Asset {
+  name
+}

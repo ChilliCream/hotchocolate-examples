@@ -1,0 +1,1 @@
+{"480c8d17e2610fe3817dd563a995d514":"query GetAssets { assets { __typename nodes { __typename ... Index_Data ... on Asset { id } } } } fragment Index_Data on Asset { name }"}

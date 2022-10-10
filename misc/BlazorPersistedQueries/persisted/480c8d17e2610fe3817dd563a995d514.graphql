@@ -1,0 +1,1 @@
+query GetAssets { assets { __typename nodes { __typename ... Index_Data ... on Asset { id } } } } fragment Index_Data on Asset { name }

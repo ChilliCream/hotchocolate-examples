@@ -1,0 +1,15 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<UseGetAssets Context="result">
+    <ChildContent>
+        @if (result.Assets?.Nodes is not null)
+        {
+            @foreach (var item in result.Assets.Nodes)
+            {
+                @item.Name <br />
+            }
+        }
+    </ChildContent>
+</UseGetAssets>

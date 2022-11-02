@@ -1,0 +1,6 @@
+﻿[
+  "{\n  \"data\": {\n    \"onFoo\": \"a\"\n  }\n}",
+  "{\n  \"data\": {\n    \"onFoo\": \"b\"\n  }\n}",
+  "{\n  \"data\": {\n    \"onFoo\": \"c\"\n  }\n}",
+  "{\n  \"data\": {\n    \"onFoo\": \"d\"\n  }\n}"
+]

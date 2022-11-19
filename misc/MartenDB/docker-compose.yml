@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P0stG&e$
+      POSTGRES_DB: postgres

@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartenDB", "MartenDB.csproj", "{465B4B27-C66C-40A0-9887-34B5909C974C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{465B4B27-C66C-40A0-9887-34B5909C974C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{465B4B27-C66C-40A0-9887-34B5909C974C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{465B4B27-C66C-40A0-9887-34B5909C974C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{465B4B27-C66C-40A0-9887-34B5909C974C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

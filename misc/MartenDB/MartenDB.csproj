@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="HotChocolate.AspNetCore" Version="13.0.0-preview.81" />
+      <PackageReference Include="HotChocolate.Data" Version="13.0.0-preview.81" />
+      <PackageReference Include="HotChocolate.Data.Marten" Version="13.0.0-preview.81" />
+      <PackageReference Include="Marten" Version="5.11.0" />
+    </ItemGroup>
+
+</Project>

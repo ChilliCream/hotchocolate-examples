@@ -1,0 +1,24 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: fusion
+services:
+- name: demo-accounts
+  project: accounts/Demo.Accounts.csproj
+  bindings:
+  - port: 50901
+- name: demo-reviews
+  project: reviews/Demo.Reviews.csproj
+  bindings:
+  - port: 50902
+- name: products
+  project: products/products.csproj
+  bindings:
+  - port: 50903
+- name: demo-gateway
+  project: gateway/Demo.Gateway.csproj
+  bindings:
+  - port: 50900

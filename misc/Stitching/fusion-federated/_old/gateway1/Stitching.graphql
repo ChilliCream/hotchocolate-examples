@@ -1,0 +1,25 @@
+extend type Query {
+  me: User! @delegate(schema: "accounts", path: "user(id: 1)")
+  topProducts(first: Int = 5): [Product] @delegate(schema: "products")
+}
+
+extend type Review {
+  author: User @delegate(schema: "accounts", path: "user(id: $fields:authorId)")
+  product: Product @delegate(schema: "products", path: "product(upc: $fields:upc)")
+}
+
+extend type Product {
+  inStock: Boolean
+    @delegate(
+      schema: "inventory",
+      path: "inventoryInfo(upc: $fields:upc).isInStock")
+  shippingEstimate: Int
+    @delegate(
+      schema: "inventory"
+      path: "shippingEstimate(price: $fields:price weight: $fields:weight)")
+  reviews: [Review] @delegate(schema: "reviews" path:"reviewsByProduct(upc: $fields:upc)")
+}
+
+extend type User {
+  reviews: [Review] @delegate(schema: "reviews" path:"reviewsByAuthor(authorId: $fields:id)")
+}

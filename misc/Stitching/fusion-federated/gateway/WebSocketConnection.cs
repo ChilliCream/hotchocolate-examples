@@ -4,7 +4,7 @@ using HotChocolate.Transport.Sockets;
 
 namespace Demo.Gateway.Helpers;
 
-public sealed class DemoWebSocketConnection : IWebSocketConnection
+public sealed class WebSocketConnection : IWebSocketConnection
 {
     public ClientWebSocket? WebSocket { get; private set; }
 
@@ -27,8 +27,8 @@ public sealed class DemoWebSocketConnection : IWebSocketConnection
     public void Dispose() => WebSocket?.Dispose();
 }
 
-public sealed class DemoWebSocketConnectionFactory : IWebSocketConnectionFactory
+public sealed class WebSocketConnectionFactory : IWebSocketConnectionFactory
 {
     public IWebSocketConnection CreateConnection(string name)
-        => new DemoWebSocketConnection();
+        => new WebSocketConnection();
 }

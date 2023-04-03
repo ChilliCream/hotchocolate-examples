@@ -6,11 +6,12 @@ public static class Query
     public static IEnumerable<User> GetUsers(UserRepository repository) 
         => repository.GetUsers();
 
+    [NodeResolver]
     public static User? GetUserById(int id, [Service] UserRepository repository) =>
         repository.GetUser(id);
 
     public static IEnumerable<User> GetUsersById(
-        IEnumerable<int> ids,
+        [ID<User>] IEnumerable<int> ids,
         [Service] UserRepository repository)
     {
         foreach (var id in ids)

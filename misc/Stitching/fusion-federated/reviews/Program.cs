@@ -8,9 +8,10 @@ builder.Services
 builder.Services
     .AddGraphQLServer()
     .AddTypes()
+    .AddGlobalObjectIdentification()
     .RegisterService<ReviewRepository>();
 
 var app = builder.Build();
 app.UseWebSockets();
 app.MapGraphQL();
-app.Run();
+app.RunWithGraphQLCommands(args);

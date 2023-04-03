@@ -7,10 +7,10 @@ public sealed class Subscription
 {
     public async IAsyncEnumerable<Review> CreateOnNewReviewStream()
     {
-        var authors = new Author[]
+        var authors = new User[]
         {
-            new Author(1, "@ada"),
-            new Author(2, "@complete")
+            new User(1, "@ada"),
+            new User(2, "@complete")
         };
 
         var reviews = new Review[]

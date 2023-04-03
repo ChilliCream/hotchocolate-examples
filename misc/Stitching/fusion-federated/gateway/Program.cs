@@ -1,26 +1,22 @@
 using Demo.Gateway.Helpers;
+using HotChocolate.Types;
+using HotChocolate.Execution;
 using HotChocolate.Fusion.Clients;
-using HotChocolate.Fusion.Composition;
-using HotChocolate.Skimmed.Serialization;
+using Path = System.IO.Path;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var project = await DemoProject.CreateAsync();
-var fusionGraph = await new FusionGraphComposer().ComposeAsync(
-    new[] 
-    {
-        project.Accounts.ToConfiguration(),
-        project.Reviews.ToConfiguration(),
-        project.Products.ToConfiguration(),
-    });
-
-builder.Services.AddHttpClient("DefaultClient");
-builder.Services.AddSingleton<IWebSocketConnectionFactory, DemoWebSocketConnectionFactory>();
+builder.Services
+    .AddHttpClient("DefaultClient");
 
 builder.Services
-    .AddFusionGatewayServer(
-        SchemaFormatter.FormatAsString(fusionGraph));
+    .AddSingleton<IWebSocketConnectionFactory, WebSocketConnectionFactory>();
+
+builder.Services
+    .AddFusionGatewayServer("./gateway.zip", watchFileForUpdates: true);
 
 var app = builder.Build();
+app.UseWebSockets();
 app.MapGraphQL();
-app.RunWithGraphQLCommands(args);
+
+app.Run();

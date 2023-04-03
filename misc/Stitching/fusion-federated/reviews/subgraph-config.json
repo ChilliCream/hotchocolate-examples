@@ -1,0 +1,5 @@
+{
+  "subgraph": "reviews",
+  "http": { "baseAddress": "http://localhost:50902/graphql" },
+  "websocket": { "baseAddress": "ws://localhost:50902/graphql" }
+}

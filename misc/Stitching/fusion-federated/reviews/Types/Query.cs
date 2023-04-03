@@ -7,13 +7,34 @@ public static class Query
         ReviewRepository repository) =>
         repository.GetReviews();
 
-    public static Author GetAuthorById(
+    [NodeResolver]
+    public static Review? GetReviewById(
         ReviewRepository repository,
-        int id)
-        => new Author(id, "some name");
+        int id) =>
+        repository.GetReview(id);
+    
+    public static IEnumerable<Review> GetReviewsById(
+        ReviewRepository repository,
+        [ID<Review>] int[] ids)
+    {
+        foreach (var id in ids)
+        {
+            var user = repository.GetReview(id);
+
+            if (user is not null)
+            {
+                yield return user;
+            }
+        }
+    }
+
+    public static User GetUserById(
+        ReviewRepository repository,
+        [ID<User>] int id)
+        => new User(id, "some name");
 
     public static Product GetProductById(
         ReviewRepository repository,
-        int upc)
-        => new Product(upc);
+        [ID<Product>] int id)
+        => new Product(id);
 }

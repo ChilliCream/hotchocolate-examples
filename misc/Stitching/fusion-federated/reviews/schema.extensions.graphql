@@ -1,9 +1,4 @@
 extend type Query {
-  authorById(id: Int! @is(field: "id")): Author
-  productById(upc: Int! @is(field: "upc")): Product
-}
-
-schema
-  @rename(coordinate: "Query.authorById", newName: "userById")
-  @rename(coordinate: "Author", newName: "User") {
+  userById(id: ID! @is(field: "id")): User
+  productById(id: ID! @is(field: "id")): Product
 }

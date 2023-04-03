@@ -1,8 +1,8 @@
 namespace Demo.Reviews.Types;
 
-public sealed class Author
+public sealed class User
 {
-    public Author(int id, string name)
+    public User(int id, string name)
     {
         Id = id;
         Name = name;

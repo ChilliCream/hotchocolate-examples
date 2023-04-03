@@ -8,16 +8,17 @@ public class Query
         [Service] ProductRepository repository) =>
         repository.GetTopProducts(first);
 
+    [NodeResolver]
     public Product GetProductById(
-        int upc,
+        int id,
         [Service] ProductRepository repository) =>
-        repository.GetProduct(upc);
-
+        repository.GetProduct(id);
+    
     public IEnumerable<Product> GetProductsById(
-        int[] upc,
+        [ID<Product>] int[] ids,
         [Service] ProductRepository repository)
     {
-        foreach (var id in upc)
+        foreach (var id in ids)
         {
             yield return repository.GetProduct(id);
         }

@@ -1,4 +1,4 @@
 extend type Query { 
-  productById(upc: Int!@is(field: "upc")): Product!
-  productsById(upc: [Int!]!@is(field: "upc")): Product!
+  productById(id: ID!@is(field: "id")): Product!
+  productsById(ids: [ID!]!@is(field: "id")): Product!
 }

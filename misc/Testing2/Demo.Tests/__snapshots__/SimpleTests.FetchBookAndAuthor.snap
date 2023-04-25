@@ -1,0 +1,10 @@
+{
+  "data": {
+    "book": {
+      "title": "C# in depth.",
+      "author": {
+        "name": "Jon Skeet"
+      }
+    }
+  }
+}

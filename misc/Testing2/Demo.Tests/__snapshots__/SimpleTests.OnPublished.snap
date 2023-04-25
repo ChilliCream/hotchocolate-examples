@@ -1,0 +1,21 @@
+Result 1
+---------------
+{
+  "data": {
+    "onPublished": {
+      "title": "C# in depth."
+    }
+  }
+}
+---------------
+
+Result 2
+---------------
+{
+  "data": {
+    "onPublished": {
+      "title": "C# in depth. - 2nd Edition"
+    }
+  }
+}
+---------------

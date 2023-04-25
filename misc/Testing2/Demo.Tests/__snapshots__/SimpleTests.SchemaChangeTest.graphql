@@ -1,0 +1,32 @@
+schema {
+  query: Query
+  subscription: Subscription
+}
+
+type Author {
+  name: String!
+  address: String @authorize(policy: "Admin", apply: BEFORE_RESOLVER)
+  someOtherField: String
+}
+
+type Book {
+  title: String!
+  author: Author!
+}
+
+type Query {
+  book: Book!
+  author: Author!
+}
+
+type Subscription {
+  onPublished: Book!
+}
+
+enum ApplyPolicy {
+  BEFORE_RESOLVER
+  AFTER_RESOLVER
+  VALIDATION
+}
+
+directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = VALIDATION) repeatable on OBJECT | FIELD_DEFINITION

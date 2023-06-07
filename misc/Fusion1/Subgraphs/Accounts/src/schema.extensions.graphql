@@ -1,0 +1,4 @@
+extend type Query {
+  userById(id: Int! @is(field: "id")): User
+  usersById(ids: [Int!]! @is(field: "id")): [User!]
+} 

@@ -1,0 +1,14 @@
+extend type Query {
+  reviewById(id: Int! @is(field: "id")): Review
+  userById(id: Int! @is(field: "id")): Author
+  usersById(ids: [Int!]! @is(field: "id")): [Author!]
+}
+
+extend schema 
+    @rename(coordinate: "Author", newName: "User")
+    @rename(coordinate: "Query.authorById", newName: "userById")
+    @rename(coordinate: "Query.authorsById", newName: "usersById")
+    @rename(coordinate: "Query.authors", newName: "users")
+{
+  
+}

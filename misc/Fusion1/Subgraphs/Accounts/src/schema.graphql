@@ -1,0 +1,17 @@
+type User {
+  id: Int!
+  name: String!
+  birthdate: String!
+  username: String!
+}
+
+type Query {
+  userById(id: Int!): User
+  usersById(ids: [Int!]!): [User!]
+  userByUsername(username: String!): User
+  users: [User!]
+}
+
+schema {
+  query: Query
+}

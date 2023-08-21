@@ -19,7 +19,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.5" />
     <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.5" />
-    <PackageReference Include="MongoDB.Driver" Version="2.7.3" />
+    <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
   </ItemGroup>  
 
 </Project>

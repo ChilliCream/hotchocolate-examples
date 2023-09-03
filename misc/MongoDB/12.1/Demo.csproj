@@ -21,7 +21,7 @@
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.1.0" />
     <PackageReference Include="HotChocolate.Data.MongoDb" Version="12.1.0" />
-    <PackageReference Include="MongoDb.Driver" Version="2.12.1" />
+    <PackageReference Include="MongoDb.Driver" Version="2.19.0" />
   </ItemGroup>
 
 </Project>

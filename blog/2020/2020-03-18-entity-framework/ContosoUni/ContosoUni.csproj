@@ -1,17 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="10.4.0-rc.1" />
-    <PackageReference Include="HotChocolate.Types.Filters" Version="10.4.0-rc.1" />
-    <PackageReference Include="HotChocolate.Types.Sorting" Version="10.4.0-rc.1" />
-    <PackageReference Include="HotChocolate.Types.Selections" Version="10.4.0-rc.1" />
-    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.4.0-rc.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+    <PackageReference Include="HotChocolate" Version="14.0.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="14.0.0" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="14.0.0" />
+    <PackageReference Include="HotChocolate.Execution" Version="14.0.0" />
+    <PackageReference Include="HotChocolate.Types.Analyzers" Version="14.0.0" />
+    <PackageReference Include="HotChocolate.Data" Version="14.0.0" />
+    <PackageReference Include="HotChocolate.Diagnostics" Version="14.0.0" />
+    <PackageReference Include="HotChocolate.Types" Version="14.0.0" />
+    <PackageReference Include="HotChocolate.Types.CursorPagination" Version="14.0.0" />
   </ItemGroup>
 
 </Project>

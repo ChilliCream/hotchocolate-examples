@@ -1,5 +1,6 @@
 using System.Linq;
 using HotChocolate;
+using HotChocolate.Data;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
 
@@ -8,21 +9,17 @@ namespace ContosoUniversity
     public class Query
     {
         [UseFirstOrDefault]
-        [UseSelection]
-        public IQueryable<Student> GetStudentById([Service]SchoolContext context, int studentId) =>
+        public IQueryable<Student> GetStudentById([Service] SchoolContext context, int studentId) =>
             context.Students.Where(t => t.Id == studentId);
 
-        [UseSelection]
+        [UsePaging]
         [UseFiltering]
         [UseSorting]
-        public IQueryable<Student> GetStudents([Service]SchoolContext context) =>
-            context.Students;
+        public IQueryable<Student> GetStudents([Service] SchoolContext context) => context.Students;
 
         [UsePaging]
-        [UseSelection]
         [UseFiltering]
         [UseSorting]
-        public IQueryable<Course> GetCourses([Service]SchoolContext context) =>
-            context.Courses;
+        public IQueryable<Course> GetCourses([Service] SchoolContext context) => context.Courses;
     }
 }

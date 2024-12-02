@@ -7,15 +7,16 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
-    <PackageReference Include="HotChocolate" Version="14.0.0" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="14.0.0" />
-    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="14.0.0" />
-    <PackageReference Include="HotChocolate.Execution" Version="14.0.0" />
-    <PackageReference Include="HotChocolate.Types.Analyzers" Version="14.0.0" />
-    <PackageReference Include="HotChocolate.Data" Version="14.0.0" />
-    <PackageReference Include="HotChocolate.Diagnostics" Version="14.0.0" />
-    <PackageReference Include="HotChocolate.Types" Version="14.0.0" />
-    <PackageReference Include="HotChocolate.Types.CursorPagination" Version="14.0.0" />
+    <PackageReference Include="HotChocolate" Version="14.2.0-p.7" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="14.2.0-p.7" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="14.2.0-p.7" />
+    <PackageReference Include="HotChocolate.Execution" Version="14.2.0-p.7" />
+    <PackageReference Include="HotChocolate.Types.Analyzers" Version="14.2.0-p.7" />
+    <PackageReference Include="HotChocolate.Data" Version="14.2.0-p.7" />
+    <PackageReference Include="HotChocolate.Diagnostics" Version="14.2.0-p.7" />
+    <PackageReference Include="HotChocolate.Types" Version="14.2.0-p.7" />
+    <PackageReference Include="HotChocolate.Types.CursorPagination" Version="14.2.0-p.7" />
+    <PackageReference Include="HotChocolate.ApolloFederation" Version="14.2.0-p.7" />
   </ItemGroup>
 
 </Project>

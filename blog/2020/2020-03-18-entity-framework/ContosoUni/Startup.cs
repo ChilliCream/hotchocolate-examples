@@ -8,6 +8,11 @@ using HotChocolate;
 using HotChocolate.AspNetCore;
 using HotChocolate.Execution.Configuration;
 using HotChocolate.AspNetCore.Serialization;
+using HotChocolate.ApolloFederation;
+using HotChocolate.Types;
+using HotChocolate.ApolloFederation.Types;
+using HotChocolate.Execution;
+using System.IO;
 
 namespace ContosoUniversity
 {
@@ -15,17 +20,22 @@ namespace ContosoUniversity
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public async void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SchoolContext>();
             services.AddHttpResponseFormatter<DefaultHttpResponseFormatter>();
 
-            services
+            var gqlService = services
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
                 .AddFiltering()
                 .AddSorting()
-                .ModifyPagingOptions(opt => opt.IncludeTotalCount = true);
+                .ModifyPagingOptions(opt => opt.IncludeTotalCount = true)
+                .AddApolloFederation(FederationVersion.Federation26)
+                .ExportDirective<OneOfDirectiveType>();
+
+            var schema = await gqlService.BuildSchemaAsync();
+            await File.WriteAllTextAsync("./schema.graphql", schema.Print());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

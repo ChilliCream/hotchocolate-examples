@@ -5,7 +5,26 @@ namespace quick_start.Products.Types;
 [QueryType]
 public static class Query
 {
-    public static Product[] GetProducts()
+    public static IProduct[] GetProducts()
+    {
+        return ProductRepository.GetProducts();
+    }
+}
+
+public static class ProductOperations
+{
+    [Query]
+    [Lookup]
+    [Internal]
+    public static IProduct GetProductById(int id)
+    {
+        return ProductRepository.GetProducts().FirstOrDefault(x => x.Id == id);
+    }
+}
+
+public class ProductRepository
+{
+    public static IProduct[] GetProducts()
     {
         return
         [
@@ -25,40 +44,26 @@ public static class Query
                 Description = "Description 2",
                 Price = 2.0m
             },
-            new Product
+            new DigitalProduct()
             {
                 Id = 3,
-                Name = "Product 3",
+                Name = "Digital Product 1",
                 Sku = "SKU3",
                 Description = "Description 3",
-                Price = 3.0m
+                Price = 5.0m,
+                LicenseKey = "ABCDE-12345-QWERT-54321-EDCBA"
             },
-            new Product
+            new PhysicalProduct()
             {
                 Id = 4,
-                Name = "Product 4",
+                Name = "Physical Product 1",
                 Sku = "SKU4",
                 Description = "Description 4",
-                Price = 4.0m
+                Price = 6.0m,
+                Height = 100,
+                Width = 150,
+                Weight = 25
             }
         ];
-    }
-}
-
-public static class ProductOperations
-{
-    [Query]
-    [Lookup]
-    [Internal]
-    public static Product GetProductById(int id)
-    {
-        return new Product
-        {
-            Id = id,
-            Name = $"Product {id}",
-            Sku = $"SKU{id}",
-            Description = $"Description {id}",
-            Price = id
-        };
     }
 }

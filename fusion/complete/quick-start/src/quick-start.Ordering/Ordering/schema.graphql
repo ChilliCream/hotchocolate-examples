@@ -2,12 +2,13 @@
   query: Query
 }
 
-interface IProduct {
+type Competitor {
   id: Int!
 }
 
 type LineItem {
-  product: IProduct!
+  product: Product!
+  competitor: Competitor!
   id: Int!
   quantity: Int!
 }
@@ -19,12 +20,13 @@ type Order {
   items: [LineItem!]!
 }
 
-type Product implements IProduct {
+type Product {
   id: Int!
 }
 
 type Query {
-  orders: [Order!]! @cost(weight: "10")
+  orders: [Order!]!
+    @cost(weight: "10")
 }
 
 "The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."

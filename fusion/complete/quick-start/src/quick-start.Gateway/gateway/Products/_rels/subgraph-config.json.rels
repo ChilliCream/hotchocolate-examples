@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Type="urn:graphql:schema" Target="/Products/schema.graphql" Id="schema" /></Relationships>

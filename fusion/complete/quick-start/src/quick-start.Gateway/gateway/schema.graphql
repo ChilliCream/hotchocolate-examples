@@ -1,0 +1,58 @@
+schema {
+  query: Query
+}
+
+type Query {
+  competitors: [ICompetitor!]!
+    @cost(weight: "10")
+  orders: [Order!]!
+    @cost(weight: "10")
+  products: [Product!]!
+    @cost(weight: "10")
+}
+
+type Competitor implements ICompetitor {
+  id: Int!
+  name: String!
+}
+
+type FakeCompetitor implements ICompetitor {
+  id: Int!
+}
+
+type LineItem {
+  competitor: ICompetitor!
+  id: Int!
+  product: Product!
+  quantity: Int!
+}
+
+type Order {
+  description: String!
+  id: Int!
+  items: [LineItem!]!
+  name: String!
+}
+
+type Player implements ICompetitor {
+  id: Int!
+  position: Int!
+}
+
+type Product {
+  description: String!
+  id: Int!
+  name: String!
+  price: Decimal!
+  sku: String!
+}
+
+interface ICompetitor {
+  id: Int!
+}
+
+"The `Decimal` scalar type represents a decimal floating-point number."
+scalar Decimal
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost("The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc." weight: String!) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION

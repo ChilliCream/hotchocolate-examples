@@ -18,9 +18,9 @@ public static class Query
         },
         new Order
         {
-            Id = 2,
-            Name = "Order 2",
-            Description = "Description 2",
+            Id = 3,
+            Name = "Order 3",
+            Description = "Description 3",
             Items =
             [
                 new() { Id = 3, Quantity = 3, ProductId = 3 },

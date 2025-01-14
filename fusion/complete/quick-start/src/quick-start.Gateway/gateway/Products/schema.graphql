@@ -1,36 +1,22 @@
-﻿schema {
+schema {
   query: Query
 }
 
-interface IProduct {
+interface ICompetitor {
   id: Int!
-  name: String!
-  sku: String!
-  description: String!
-  price: Decimal!
 }
 
-type DigitalProduct implements IProduct {
-  licenseKey: String!
+type Competitor implements ICompetitor {
   id: Int!
   name: String!
-  sku: String!
-  description: String!
-  price: Decimal!
 }
 
-type PhysicalProduct implements IProduct {
-  height: Decimal!
-  width: Decimal!
-  weight: Decimal!
+type Player implements ICompetitor {
   id: Int!
-  name: String!
-  sku: String!
-  description: String!
-  price: Decimal!
+  position: Int!
 }
 
-type Product implements IProduct {
+type Product {
   id: Int!
   name: String!
   sku: String!
@@ -39,8 +25,18 @@ type Product implements IProduct {
 }
 
 type Query {
-  productById(id: Int!): IProduct! @lookup @internal @cost(weight: "10")
-  products: [IProduct!]! @cost(weight: "10")
+  productById(id: Int!): Product!
+    @lookup
+    @internal
+    @cost(weight: "10")
+  competitorById(id: Int!): ICompetitor!
+    @lookup
+    @internal
+    @cost(weight: "10")
+  products: [Product!]!
+    @cost(weight: "10")
+  competitors: [ICompetitor!]!
+    @cost(weight: "10")
 }
 
 "The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."

@@ -1,0 +1,88 @@
+schema
+  @fusion(version: 1)
+  @transport(subgraph: "Products", group: "Fusion", location: "http:\/\/localhost:5003\/graphql", kind: "HTTP")
+  @transport(subgraph: "Ordering", group: "Fusion", location: "http:\/\/localhost:5002\/graphql", kind: "HTTP") {
+  query: Query
+}
+
+type Query {
+  competitors: [ICompetitor!]!
+    @cost(weight: "10")
+    @resolver(subgraph: "Products", select: "{ competitors }")
+  orders: [Order!]!
+    @cost(weight: "10")
+    @resolver(subgraph: "Ordering", select: "{ orders }")
+  products: [Product!]!
+    @cost(weight: "10")
+    @resolver(subgraph: "Products", select: "{ products }")
+}
+
+type Competitor implements ICompetitor {
+  id: Int!
+    @source(subgraph: "Products")
+    @source(subgraph: "Ordering")
+  name: String!
+    @source(subgraph: "Products")
+}
+
+type FakeCompetitor implements ICompetitor {
+  id: Int!
+    @source(subgraph: "Ordering")
+}
+
+type LineItem {
+  competitor: ICompetitor!
+    @source(subgraph: "Ordering")
+  id: Int!
+    @source(subgraph: "Ordering")
+  product: Product!
+    @source(subgraph: "Ordering")
+  quantity: Int!
+    @source(subgraph: "Ordering")
+}
+
+type Order {
+  description: String!
+    @source(subgraph: "Ordering")
+  id: Int!
+    @source(subgraph: "Ordering")
+  items: [LineItem!]!
+    @source(subgraph: "Ordering")
+  name: String!
+    @source(subgraph: "Ordering")
+}
+
+type Player implements ICompetitor {
+  id: Int!
+    @source(subgraph: "Products")
+    @source(subgraph: "Ordering")
+  position: Int!
+    @source(subgraph: "Products")
+}
+
+type Product
+  @variable(subgraph: "Products", name: "Product_id", select: "id")
+  @variable(subgraph: "Ordering", name: "Product_id", select: "id")
+  @resolver(subgraph: "Products", select: "{ productById(id: $Product_id) }", arguments: [ { name: "Product_id", type: "Int!" } ]) {
+  description: String!
+    @source(subgraph: "Products")
+  id: Int!
+    @source(subgraph: "Products")
+    @source(subgraph: "Ordering")
+  name: String!
+    @source(subgraph: "Products")
+  price: Decimal!
+    @source(subgraph: "Products")
+  sku: String!
+    @source(subgraph: "Products")
+}
+
+interface ICompetitor {
+  id: Int!
+}
+
+"The `Decimal` scalar type represents a decimal floating-point number."
+scalar Decimal
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost("The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc." weight: String!) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION
